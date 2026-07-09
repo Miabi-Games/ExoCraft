@@ -8,8 +8,7 @@ public partial class GameScreen : Control
 {
     public override void _Ready()
     {
-        _overlayContainer = GetNode<Control>("%OverlayContainer");
-        _gameMenuOverlayScene = ScreenHelper.LoadPackedScene("Game Screen", ScreenHelper.GameMenuOverlay);
+        _gameMenu = GetNode<GameMenuOverlay>("%GameMenu");
     }
 
     public override void _UnhandledInput(InputEvent ev)
@@ -18,18 +17,14 @@ public partial class GameScreen : Control
 
         if (ev.IsActionPressed("ui_cancel"))
         {
-            LoadGameMenuScreen();
-            GetViewport().SetInputAsHandled();
+            _gameMenu.Visible = true;
         }
+
+        GetViewport().SetInputAsHandled();
     }
 
     private static void LoadGameMenuScreen()
     {
-        ScreenHelper.LoadOverlay(
-            "Game Screen",
-            _overlayContainer,
-            ScreenHelper.GameMenuOverlay,
-            _gameMenuOverlayScene!);
     }
 
     private static bool GetShouldAcceptInput()
@@ -37,6 +32,5 @@ public partial class GameScreen : Control
         return InteractiveOverlayTracker.Instance.Count == 0;
     }
 
-    private static Control _overlayContainer = null!;
-    private static PackedScene? _gameMenuOverlayScene = null;
+    GameMenuOverlay _gameMenu = null!;
 }

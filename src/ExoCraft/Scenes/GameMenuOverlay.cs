@@ -10,6 +10,6 @@ public partial class GameMenuOverlay : Panel
     {
         InteractiveOverlayTracker.Instance.TrackUntilExit(this);
         var menu = GetNode<MainMenu>("MainMenu");
-        menu.ExitMenu += () => QueueFree();
+        menu.ExitMenu += () => Visible = false;
     }
 }

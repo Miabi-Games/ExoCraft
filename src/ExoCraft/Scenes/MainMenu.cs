@@ -19,6 +19,8 @@ public partial class MainMenu : Control
 
     public override void _UnhandledInput(InputEvent ev)
     {
+        if (!IsVisibleInTree()) return;
+
         if (ev.IsActionPressed("ui_cancel") && InGame)
         {
             ReturnToGame();
