@@ -7,12 +7,12 @@ public partial class BootScreen : Panel
     [Export]
     private double TimeoutSeconds { get; set; } = 3.0;
 
-    [Export]
-    private PackedScene? NextScene { get; set; }
+    [Export(PropertyHint.File, "*.tscn")]
+    public string NextScenePath { get; set; } = "";
 
     public override async void _Ready()
     {
-        if (NextScene is null)
+        if (string.IsNullOrEmpty(NextScenePath))
         {
             GD.PushError("BootScreen: NextScene is not set.");
             return;
@@ -20,7 +20,7 @@ public partial class BootScreen : Panel
 
         await ToSignal(GetTree().CreateTimer(TimeoutSeconds), SceneTreeTimer.SignalName.Timeout);
 
-        Error result = GetTree().ChangeSceneToPacked(NextScene);
+        Error result = GetTree().ChangeSceneToFile(NextScenePath);
 
         if (result != Error.Ok)
         {

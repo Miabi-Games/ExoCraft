@@ -7,9 +7,6 @@ public partial class MainMenu : Control
     [Export]
     private bool InGame { get; set; } = false;
 
-    [Export]
-    private PackedScene? GameScreen { get; set; }
-
     [Signal]
     public delegate void ExitMenuEventHandler();
 
@@ -18,6 +15,21 @@ public partial class MainMenu : Control
         GetNodes();
         UpdateButtonVisibility();
         WireSignals();
+    }
+
+    public override void _UnhandledInput(InputEvent ev)
+    {
+        if (ev.IsActionPressed("ui_cancel") && InGame)
+        {
+            ReturnToGame();
+        }
+
+        GetViewport().SetInputAsHandled();
+    }
+
+    private static bool GetContinueIsAvailable()
+    {
+        return false; // for future expansion
     }
 
     private void GetNodes()
@@ -32,6 +44,31 @@ public partial class MainMenu : Control
         _optionsButton = GetNode<Button>("%OptionsButton");
         _exitToMainMenuButton = GetNode<Button>("%ExitToMainMenuButton");
         _exitToDesktopButton = GetNode<Button>("%ExitToDesktopButton");
+    }
+
+    private void OnExitToDesktopButtonPressed()
+    {
+        GetTree().Quit();
+    }
+
+    private void OnNewGameButtonPressed()
+    {
+        ScreenHelper.SwitchToScreen("Main Menu", ScreenHelper.GameScreen);
+    }
+
+    private void OnReturnToGameButtonPressed()
+    {
+        ReturnToGame();
+    }
+
+    private void OnExitToMainMenuButtonPressed()
+    {
+        ScreenHelper.SwitchToScreen("Main Menu", ScreenHelper.MainMenuScreen);
+    }
+
+    private void ReturnToGame()
+    {
+        EmitSignal(SignalName.ExitMenu);
     }
 
     private void UpdateButtonVisibility()
@@ -52,38 +89,8 @@ public partial class MainMenu : Control
     {
         _newGameButton.Pressed += OnNewGameButtonPressed;
         _returnToGameButton.Pressed += OnReturnToGameButtonPressed;
+        _exitToMainMenuButton.Pressed += OnExitToMainMenuButtonPressed;
         _exitToDesktopButton.Pressed += OnExitToDesktopButtonPressed;
-    }
-
-    private void OnNewGameButtonPressed()
-    {
-        if (GameScreen is null)
-        {
-            GD.PushError("MainMenu: GameScreen is not set.");
-            return;
-        }
-
-        Error result = GetTree().ChangeSceneToPacked(GameScreen);
-
-        if (result != Error.Ok)
-        {
-            GD.PushError($"MainMenu: Failed to change scene. Error: {result}");
-        }
-    }
-
-    private void OnReturnToGameButtonPressed()
-    {
-        EmitSignal(SignalName.ExitMenu);
-    }
-
-    private void OnExitToDesktopButtonPressed()
-    {
-        GetTree().Quit();
-    }
-
-    private static bool GetContinueIsAvailable()
-    {
-        return false; // for future expansion
     }
 
     private Button _continueGameButton = null!;

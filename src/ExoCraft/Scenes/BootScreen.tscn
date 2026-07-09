@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dkjwnx5yqtsbp"]
 
 [ext_resource type="Script" uid="uid://btfppjm4njjcs" path="res://Scenes/BootScreen.cs" id="1_iskjv"]
-[ext_resource type="PackedScene" uid="uid://b5tsr57p3ixb5" path="res://Scenes/MainMenuScreen.tscn" id="2_3qxp2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qxp2"]
 bg_color = Color(0, 0, 0, 1)
@@ -15,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3qxp2")
 script = ExtResource("1_iskjv")
-NextScene = ExtResource("2_3qxp2")
+NextScenePath = "uid://b5tsr57p3ixb5"
 
 [node name="GameLogo" type="RichTextLabel" parent="." unique_id=499309393]
 custom_minimum_size = Vector2(400, 0)

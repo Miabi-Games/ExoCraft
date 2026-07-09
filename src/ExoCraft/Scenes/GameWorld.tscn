@@ -1,3 +1,38 @@
 [gd_scene format=3 uid="uid://cdjclyyegkvqa"]
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_53j0q"]
+
+[sub_resource type="Sky" id="Sky_q75nt"]
+sky_material = SubResource("PhysicalSkyMaterial_53j0q")
+
+[sub_resource type="Environment" id="Environment_ui0sf"]
+background_mode = 2
+sky = SubResource("Sky_q75nt")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.85
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_tnnpc"]
+auto_exposure_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ywpc4"]
+
 [node name="GameWorld" type="Node3D" unique_id=1740151602]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1248314398]
+environment = SubResource("Environment_ui0sf")
+camera_attributes = SubResource("CameraAttributesPractical_tnnpc")
+
+[node name="SunPivot" type="Node3D" parent="." unique_id=93333369]
+transform = Transform3D(4.371139e-08, -3.821371e-15, -1, -8.742278e-08, -1, 0, -1, 8.742278e-08, -4.371139e-08, 0, 0, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="SunPivot" unique_id=1116670865]
+transform = Transform3D(-1, -8.444392e-08, -2.2626683e-08, 0, 0.25881907, -0.9659258, 8.742278e-08, -0.9659258, -0.25881907, 0, 0, 0)
+
+[node name="PlayerPawn" type="Node3D" parent="." unique_id=1738628184]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerPawn" unique_id=497835027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ywpc4")
+
+[node name="MainCamera" type="Camera3D" parent="PlayerPawn" unique_id=622522759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)

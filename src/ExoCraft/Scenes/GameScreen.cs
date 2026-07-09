@@ -6,12 +6,10 @@ namespace ExoCraft.Scenes;
 
 public partial class GameScreen : Control
 {
-    [Export]
-    private PackedScene? GameMenuOverlay { get; set; }
-
     public override void _Ready()
     {
         _overlayContainer = GetNode<Control>("%OverlayContainer");
+        _gameMenuOverlayScene = ScreenHelper.LoadPackedScene("Game Screen", ScreenHelper.GameMenuOverlay);
     }
 
     public override void _UnhandledInput(InputEvent ev)
@@ -25,23 +23,13 @@ public partial class GameScreen : Control
         }
     }
 
-    private void LoadGameMenuScreen()
+    private static void LoadGameMenuScreen()
     {
-        if (GameMenuOverlay is null)
-        {
-            GD.PushError("GameScreen: GameMenuOverlay is not set.");
-            return;
-        }
-
-        var menu = GameMenuOverlay.Instantiate<GameMenuOverlay>();
-
-        if (menu is null)
-        {
-            GD.PushError($"GameScreen: Failed to load GameMenuOverlay.");
-            return;
-        }
-
-        _overlayContainer.AddChild(menu);
+        ScreenHelper.LoadOverlay(
+            "Game Screen",
+            _overlayContainer,
+            ScreenHelper.GameMenuOverlay,
+            _gameMenuOverlayScene!);
     }
 
     private static bool GetShouldAcceptInput()
@@ -50,4 +38,5 @@ public partial class GameScreen : Control
     }
 
     private static Control _overlayContainer = null!;
+    private static PackedScene? _gameMenuOverlayScene = null;
 }
