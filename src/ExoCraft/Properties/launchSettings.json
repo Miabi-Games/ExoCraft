@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ExoCraft": {
+      "commandName": "Executable",
+      "executablePath": "$(GODOT_4_7_MONO_EXE_PATH)",
+      "commandLineArgs": "--path . --debug",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
