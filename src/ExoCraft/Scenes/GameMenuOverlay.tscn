@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cm0ej68tyhf8n"]
+
+[ext_resource type="Script" uid="uid://75cclgfa1o58" path="res://Scenes/GameMenuOverlay.cs" id="1_eldxl"]
+[ext_resource type="PackedScene" uid="uid://bav2dgvlpljgi" path="res://Scenes/MainMenu.tscn" id="2_i5cbf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfmy"]
+bg_color = Color(0, 0, 0, 0.33333334)
+
+[node name="GameMenuOverlay" type="Panel" unique_id=2003233329]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_opfmy")
+script = ExtResource("1_eldxl")
+
+[node name="MainMenu" parent="." unique_id=1323968609 instance=ExtResource("2_i5cbf")]
+layout_mode = 1
+InGame = true

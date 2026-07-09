@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cxdifdh3ut0d5"]
+
+[ext_resource type="Script" uid="uid://cxixtgqanua5b" path="res://Scenes/GameScreen.cs" id="1_4v8sn"]
+[ext_resource type="PackedScene" uid="uid://cdjclyyegkvqa" path="res://Scenes/GameWorld.tscn" id="1_qy101"]
+[ext_resource type="PackedScene" uid="uid://cm0ej68tyhf8n" path="res://Scenes/GameMenuOverlay.tscn" id="2_pv3es"]
+
+[node name="GameScreen" type="Control" unique_id=1531142337]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4v8sn")
+GameMenuOverlay = ExtResource("2_pv3es")
+
+[node name="GameWorld" parent="." unique_id=1740151602 instance=ExtResource("1_qy101")]
+
+[node name="OverlayContainer" type="Control" parent="." unique_id=700068817]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
