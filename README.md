@@ -1,6 +1,6 @@
 # ExoCraft
 
-**ExoCraft** is an open-source voxel/block-based automation survival game prototype built with Godot.
+**ExoCraft** is a voxel/block-based automation survival game prototype built with Godot. Its current source code is publicly available under the MIT License.
 
 The project is inspired by games such as *FortressCraft Evolved* and Minecraft-style block worlds, but with a stronger focus on embodied survival, settlement, and home-making. The player is not only building machines and expanding a base; they are creating a place where people can live, recover, work, rest, and eventually want more than mere survival.
 
@@ -74,6 +74,14 @@ It is intended to demonstrate:
 * iterative prototyping
 * thoughtful game design documentation
 
+### Source Availability
+
+The source code currently published in this repository is available under the MIT License and may continue to be used under that license.
+
+However, public development of ExoCraft is experimental and should not be understood as a commitment to publish the source code of every future version. Future development, releases, or portions of the project may use a different source-availability or distribution model.
+
 ## License
 
-This project is released under the MIT License. See [LICENSE](LICENSE) for details.
+The contents currently published in this repository are released under the MIT License. See [LICENSE](LICENSE) for details.
+
+This license continues to apply to versions already released under it. It does not constitute a promise that future versions of ExoCraft, or all future project assets and source code, will be published under the same license or made publicly available.
