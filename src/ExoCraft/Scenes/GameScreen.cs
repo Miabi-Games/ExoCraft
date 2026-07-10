@@ -23,10 +23,6 @@ public partial class GameScreen : Control
         GetViewport().SetInputAsHandled();
     }
 
-    private static void LoadGameMenuScreen()
-    {
-    }
-
     private static bool GetShouldAcceptInput()
     {
         return InteractiveOverlayTracker.Instance.Count == 0;
