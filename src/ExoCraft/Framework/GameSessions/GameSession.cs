@@ -1,13 +1,15 @@
-using ExoCraft.Framework.GameSessions;
+using ExoCraft.Framework.VisualWorld;
 
 using Godot;
 
 using System;
 
-namespace ExoCraft.Framework;
+namespace ExoCraft.Framework.GameSessions;
 
 public sealed class GameSession : IGameSession, IDisposable
 {
+    // ─────────────────────────────────────────────────────────────────────────
+
     public static IGameSession Instance { get; private set; } = null!;
 
     public static GameSession CreateInstance()
@@ -28,6 +30,8 @@ public sealed class GameSession : IGameSession, IDisposable
     // Note: FailureMessage can be null even when _hasFailed is true (clients
     // aren't required to provide a message).
 
+    // ─────────────────────────────────────────────────────────────────────────
+
     private bool _hasFailed = false;
     public string? FailureMessage { get; private set; } = null;
 
@@ -44,6 +48,8 @@ public sealed class GameSession : IGameSession, IDisposable
 
     public delegate void FailedEventHandler(string? message);
     public event FailedEventHandler? Failed;
+
+    // ─────────────────────────────────────────────────────────────────────────
 
     private GameSession() { }
 
@@ -105,6 +111,8 @@ public sealed class GameSession : IGameSession, IDisposable
             return;
         }
 
+        VisualWorld = services.VisualWorld;
+
         SessionState = GameSessionState.Initialized;
     }
 
@@ -127,4 +135,10 @@ public sealed class GameSession : IGameSession, IDisposable
 
         SessionState = GameSessionState.Started;
     }
+
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public IVisualWorld VisualWorld { get; private set; } = null!;
+
+    // ─────────────────────────────────────────────────────────────────────────
 }

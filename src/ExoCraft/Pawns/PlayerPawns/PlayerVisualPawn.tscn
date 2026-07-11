@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b7q76qnuwidcb"]
+
+[ext_resource type="Script" uid="uid://3cermvanyut5" path="res://Pawns/PlayerPawns/PlayerVisualPawn.cs" id="1_gcg50"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ywpc4"]
+radius = 0.45
+height = 1.8
+
+[node name="PlayerVisualPawn" type="Node3D" unique_id=1129590567]
+script = ExtResource("1_gcg50")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2077081274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_ywpc4")

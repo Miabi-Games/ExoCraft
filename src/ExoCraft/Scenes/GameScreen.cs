@@ -1,7 +1,7 @@
-using ExoCraft.Framework;
 using ExoCraft.Framework.GameSessions;
 using ExoCraft.Framework.GameSystems;
 using ExoCraft.Framework.ScreenLayers;
+using ExoCraft.Framework.VisualWorld;
 
 using Godot;
 
@@ -79,7 +79,11 @@ public partial class GameScreen : RootScreenLayer
 
     private void InitializeGameSession()
     {
-        var services = new GameSessionServices();
+        var services = new GameSessionServices
+        {
+            VisualWorld = GetNode<IVisualWorld>("%VisualWorld"),
+        };
+
         var settings = new GameSessionSettings();
 
         _gameSession = GameSession.CreateInstance();

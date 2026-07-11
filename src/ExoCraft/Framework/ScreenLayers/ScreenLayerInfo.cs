@@ -4,6 +4,11 @@ namespace ExoCraft.Framework.ScreenLayers;
 
 public record class ScreenLayerInfo
 {
+    // These fixed screen definitons could benefit from being stored in a
+    // resource file instead, but that is left as future work. It should likely
+    // be done when submenus are added to the main menu, assuming they aren't
+    // just made into overlays.
+
     public static readonly ScreenLayerInfo GameScreen
         = ("game screen", "res://Scenes/GameScreen.tscn");
 
