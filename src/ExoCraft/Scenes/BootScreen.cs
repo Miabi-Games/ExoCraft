@@ -12,23 +12,24 @@ public partial class BootScreen : Panel
     public override async void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
+
         await ToSignal(GetTree().CreateTimer(TimeoutSeconds), SceneTreeTimer.SignalName.Timeout);
-        ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
+
+        LoadMainMenu();
     }
 
     public override void _Input(InputEvent ev)
     {
-        if (ev is InputEventMouseButton && ev.IsPressed())
-        {
-            ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
-        }
+        if (ev is InputEventMouseButton && ev.IsPressed()) LoadMainMenu();
     }
 
     public override void _UnhandledInput(InputEvent ev)
     {
-        if (ev is InputEventKey && ev.IsPressed())
-        {
-            ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
-        }
+        if (ev is InputEventKey && ev.IsPressed()) LoadMainMenu();
+    }
+
+    private void LoadMainMenu()
+    {
+        ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
     }
 }
