@@ -1,14 +1,7 @@
-using ExoCraft.Framework;
-
-using Godot;
+using ExoCraft.Framework.ScreenLayers;
 
 namespace ExoCraft.Scenes;
 
-public partial class MainMenuScreen : Panel
+public partial class MainMenuScreen : RootScreenLayer
 {
-    public override void _Ready()
-    {
-        InteractiveOverlayTracker.Instance.TrackUntilExit(this);
-
-    }
 }

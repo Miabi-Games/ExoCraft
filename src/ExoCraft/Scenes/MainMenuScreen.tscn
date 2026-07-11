@@ -3,17 +3,23 @@
 [ext_resource type="PackedScene" uid="uid://bav2dgvlpljgi" path="res://Scenes/MainMenu.tscn" id="1_b4kbe"]
 [ext_resource type="Script" uid="uid://cb4okjtlnd2qr" path="res://Scenes/MainMenuScreen.cs" id="1_q38w8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfmy"]
-bg_color = Color(0, 0, 0, 1)
-
-[node name="MainMenuScreen" type="Panel" unique_id=2003233329]
+[node name="MainMenuScreen" type="Control" unique_id=767223856]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_opfmy")
 script = ExtResource("1_q38w8")
+metadata/_custom_type_script = "uid://c1s33tu7nkpox"
+
+[node name="Panel" type="Panel" parent="." unique_id=1235635278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MainMenu" parent="." unique_id=1323968609 instance=ExtResource("1_b4kbe")]
 layout_mode = 1

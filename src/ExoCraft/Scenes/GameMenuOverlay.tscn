@@ -6,14 +6,24 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfmy"]
 bg_color = Color(0, 0, 0, 0.33333334)
 
-[node name="GameMenuOverlay" type="Panel" unique_id=2003233329]
+[node name="GameMenuOverlay" type="Control" unique_id=1679763582]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eldxl")
+metadata/_custom_type_script = "uid://nmt02jfldq0o"
+
+[node name="Background" type="Panel" parent="." unique_id=2003233329]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_opfmy")
-script = ExtResource("1_eldxl")
 
 [node name="MainMenu" parent="." unique_id=1323968609 instance=ExtResource("2_i5cbf")]
 layout_mode = 1

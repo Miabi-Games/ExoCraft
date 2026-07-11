@@ -1,3 +1,5 @@
+using ExoCraft.Framework.ScreenLayers;
+
 using Godot;
 
 namespace ExoCraft.Scenes;
@@ -7,24 +9,26 @@ public partial class BootScreen : Panel
     [Export]
     private double TimeoutSeconds { get; set; } = 3.0;
 
-    [Export(PropertyHint.File, "*.tscn")]
-    public string NextScenePath { get; set; } = "";
-
     public override async void _Ready()
     {
-        if (string.IsNullOrEmpty(NextScenePath))
-        {
-            GD.PushError("BootScreen: NextScene is not set.");
-            return;
-        }
-
+        Input.MouseMode = Input.MouseModeEnum.Captured;
         await ToSignal(GetTree().CreateTimer(TimeoutSeconds), SceneTreeTimer.SignalName.Timeout);
+        ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
+    }
 
-        Error result = GetTree().ChangeSceneToFile(NextScenePath);
-
-        if (result != Error.Ok)
+    public override void _Input(InputEvent ev)
+    {
+        if (ev is InputEventMouseButton && ev.IsPressed())
         {
-            GD.PushError($"BootScreen: Failed to change scene. Error: {result}");
+            ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
+        }
+    }
+
+    public override void _UnhandledInput(InputEvent ev)
+    {
+        if (ev is InputEventKey && ev.IsPressed())
+        {
+            ScreenLayerManager.SwitchRootScreenLayer("BootScreen", ScreenLayerInfo.MainMenuScreen);
         }
     }
 }

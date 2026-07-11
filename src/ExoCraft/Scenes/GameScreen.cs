@@ -1,37 +1,53 @@
 using ExoCraft.Framework;
 using ExoCraft.Framework.GameSessions;
 using ExoCraft.Framework.GameSystems;
+using ExoCraft.Framework.ScreenLayers;
 
 using Godot;
 
 namespace ExoCraft.Scenes;
 
-public partial class GameScreen : Control
+public partial class GameScreen : RootScreenLayer
 {
+    public override ScreenLayerMouseHandling MouseHandling => ScreenLayerMouseHandling.Captured;
+
     public override void _Ready()
     {
         ReadyInitializeFields();
+    }
+
+    public override void EnterScreenLayer()
+    {
         InitializeGameSession();
         InitializeGameSystems();
     }
 
-    public override void _ExitTree()
+    public override void ExitScreenLayer()
     {
-        if (_gameSession is not null)
+        try
         {
-            try
-            {
-                if (_gameSession.HasStarted) _gameSession.End();
-            }
-            finally
+            if (_gameSystems.IsInitialized) _gameSystems.Shutdown();
+            if (_gameSession is not null && _gameSession.HasStarted) _gameSession.End();
+        }
+        finally
+        {
+            if (_gameSession is not null)
             {
                 _gameSession.Dispose();
                 _gameSession = null!;
             }
         }
+    }
 
-        // This can't be here
-        // if (_gameSystems.IsInitialized) _gameSystems.Shutdown();
+    public override void _ExitTree()
+    {
+        // in case ExitScreenLayer wasn't called
+
+        if (_gameSession is not null)
+        {
+            _gameSession.Dispose();
+            _gameSession = null!;
+        }
     }
 
     public override void _Process(double delta)
@@ -50,7 +66,7 @@ public partial class GameScreen : Control
 
         if (ev.IsActionPressed("ui_cancel"))
         {
-            _gameMenu.Visible = true;
+            ScreenLayerManager.PushScreenOverlay("GameScreen", _gameMenu);
         }
 
         GetViewport().SetInputAsHandled();
@@ -58,7 +74,7 @@ public partial class GameScreen : Control
 
     private static bool GetShouldAcceptInput()
     {
-        return InteractiveOverlayTracker.Instance.Count == 0;
+        return ScreenLayerManager.OverlayCount == 0;
     }
 
     private void InitializeGameSession()

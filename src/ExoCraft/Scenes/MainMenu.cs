@@ -1,8 +1,10 @@
+using ExoCraft.Framework.ScreenLayers;
+
 using Godot;
 
 namespace ExoCraft.Scenes;
 
-public partial class MainMenu : Control
+public partial class MainMenu : RootScreenLayer
 {
     [Export]
     private bool InGame { get; set; } = false;
@@ -36,22 +38,23 @@ public partial class MainMenu : Control
 
     private void OnExitToDesktopButtonPressed()
     {
+        ScreenLayerManager.PopRoot("MainMenu");
         GetTree().Quit();
+    }
+
+    private void OnExitToMainMenuButtonPressed()
+    {
+        ScreenLayerManager.SwitchRootScreenLayer("MainMenu", ScreenLayerInfo.MainMenuScreen);
     }
 
     private void OnNewGameButtonPressed()
     {
-        ScreenHelper.SwitchToScreen("Main Menu", ScreenHelper.GameScreen);
+        ScreenLayerManager.SwitchRootScreenLayer("MainMenu", ScreenLayerInfo.GameScreen);
     }
 
     private void OnReturnToGameButtonPressed()
     {
         ReturnToGame();
-    }
-
-    private void OnExitToMainMenuButtonPressed()
-    {
-        ScreenHelper.SwitchToScreen("Main Menu", ScreenHelper.MainMenuScreen);
     }
 
     private void ReadyInitializeFields()

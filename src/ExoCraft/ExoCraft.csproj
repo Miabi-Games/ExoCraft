@@ -9,7 +9,4 @@
   <ItemGroup>
     <ProjectReference Include="..\ExoCraft.Core\ExoCraft.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Globals\" />
-  </ItemGroup>
 </Project>

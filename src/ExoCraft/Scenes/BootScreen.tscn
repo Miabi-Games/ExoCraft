@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://btfppjm4njjcs" path="res://Scenes/BootScreen.cs" id="1_iskjv"]
 [ext_resource type="PackedScene" uid="uid://bqdqynlu3ckwd" path="res://Scenes/BrandBox.tscn" id="2_3qxp2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qxp2"]
-bg_color = Color(0, 0, 0, 1)
-
 [node name="BootScreen" type="Panel" unique_id=1016860052]
 top_level = true
 anchors_preset = 15
@@ -13,9 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3qxp2")
 script = ExtResource("1_iskjv")
-NextScenePath = "uid://b5tsr57p3ixb5"
 
 [node name="GameLogo" type="RichTextLabel" parent="." unique_id=499309393]
 custom_minimum_size = Vector2(400, 0)

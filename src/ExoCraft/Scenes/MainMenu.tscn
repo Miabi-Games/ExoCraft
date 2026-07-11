@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5f1"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
 
-[node name="MainMenu" type="Control" unique_id=1323968609]
+[node name="MainMenu" type="Control" unique_id=562915473]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,7 @@ grow_vertical = 2
 theme = ExtResource("1_tt5f1")
 theme_type_variation = &"Panel_Background"
 script = ExtResource("2_853f1")
+metadata/_custom_type_script = "uid://c1s33tu7nkpox"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=110865605]
 layout_mode = 1

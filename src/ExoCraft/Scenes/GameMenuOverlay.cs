@@ -1,15 +1,12 @@
-using ExoCraft.Framework;
-
-using Godot;
+using ExoCraft.Framework.ScreenLayers;
 
 namespace ExoCraft.Scenes;
 
-public partial class GameMenuOverlay : Panel
+public partial class GameMenuOverlay : ScreenOverlayLayer
 {
     public override void _Ready()
     {
-        InteractiveOverlayTracker.Instance.TrackUntilExit(this);
         var menu = GetNode<MainMenu>("MainMenu");
-        menu.ExitMenu += () => Visible = false;
+        menu.ExitMenu += () => ScreenLayerManager.PopScreenOverlay("MainMenuOverlay", this);
     }
 }
