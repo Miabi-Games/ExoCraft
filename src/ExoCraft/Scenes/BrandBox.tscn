@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bqdqynlu3ckwd"]
+
+[ext_resource type="Texture2D" uid="uid://bw6ecya6pchj0" path="res://GodotIcon.svg" id="1_7in2v"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7ljxn"]
+color = Color(0.8, 0.8, 0.8, 1)
+thickness = 3
+
+[node name="BrandBox" type="VBoxContainer" unique_id=303331774]
+custom_minimum_size = Vector2(298, 152)
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="OrganizationLogo" type="RichTextLabel" parent="." unique_id=115737499]
+custom_minimum_size = Vector2(292, 68)
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=24]a game by Mia B. Regula,
+dba Miabi Games™"
+fit_content = true
+vertical_alignment = 2
+
+[node name="Divider" type="Panel" parent="." unique_id=436759233]
+custom_minimum_size = Vector2(282, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxLine_7ljxn")
+
+[node name="GodotLogo" type="Control" parent="." unique_id=1717952380]
+custom_minimum_size = Vector2(298, 68)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GodotLogo" unique_id=724474802]
+custom_minimum_size = Vector2(230, 68)
+layout_mode = 0
+offset_left = 68.0
+offset_top = -4.0
+offset_right = 298.0
+offset_bottom = 64.0
+bbcode_enabled = true
+text = "[font_size=24]built using the
+Godot Game Engine"
+fit_content = true
+vertical_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GodotLogo" unique_id=574148853]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_7in2v")
+expand_mode = 2

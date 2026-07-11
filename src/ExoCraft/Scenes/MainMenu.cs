@@ -12,7 +12,7 @@ public partial class MainMenu : Control
 
     public override void _Ready()
     {
-        GetNodes();
+        ReadyInitializeFields();
         UpdateButtonVisibility();
         WireSignals();
     }
@@ -34,20 +34,6 @@ public partial class MainMenu : Control
         return false; // for future expansion
     }
 
-    private void GetNodes()
-    {
-        _continueGameButton = GetNode<Button>("%ContinueGameButton");
-        _newGameButton = GetNode<Button>("%NewGameButton");
-        _returnToGameButton = GetNode<Button>("%ReturnToGameButton");
-        _saveButton = GetNode<Button>("%SaveButton");
-        _saveAsButton = GetNode<Button>("%SaveAsButton");
-        _loadButton = GetNode<Button>("%LoadButton");
-        _quickLoadButton = GetNode<Button>("%QuickLoadButton");
-        _optionsButton = GetNode<Button>("%OptionsButton");
-        _exitToMainMenuButton = GetNode<Button>("%ExitToMainMenuButton");
-        _exitToDesktopButton = GetNode<Button>("%ExitToDesktopButton");
-    }
-
     private void OnExitToDesktopButtonPressed()
     {
         GetTree().Quit();
@@ -66,6 +52,20 @@ public partial class MainMenu : Control
     private void OnExitToMainMenuButtonPressed()
     {
         ScreenHelper.SwitchToScreen("Main Menu", ScreenHelper.MainMenuScreen);
+    }
+
+    private void ReadyInitializeFields()
+    {
+        _continueGameButton = GetNode<Button>("%ContinueGameButton");
+        _newGameButton = GetNode<Button>("%NewGameButton");
+        _returnToGameButton = GetNode<Button>("%ReturnToGameButton");
+        _saveButton = GetNode<Button>("%SaveButton");
+        _saveAsButton = GetNode<Button>("%SaveAsButton");
+        _loadButton = GetNode<Button>("%LoadButton");
+        _quickLoadButton = GetNode<Button>("%QuickLoadButton");
+        _optionsButton = GetNode<Button>("%OptionsButton");
+        _exitToMainMenuButton = GetNode<Button>("%ExitToMainMenuButton");
+        _exitToDesktopButton = GetNode<Button>("%ExitToDesktopButton");
     }
 
     private void ReturnToGame()

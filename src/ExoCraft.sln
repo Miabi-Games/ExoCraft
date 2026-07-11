@@ -1,12 +1,17 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11828.311 oobstable
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoCraft", "ExoCraft\ExoCraft.csproj", "{A3D306E1-8D9D-4E3C-928E-DF2FFED85AC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoCraft.Core", "ExoCraft.Core\ExoCraft.Core.csproj", "{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A3D306E1-8D9D-4E3C-928E-DF2FFED85AC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +20,14 @@ Global
 		{A3D306E1-8D9D-4E3C-928E-DF2FFED85AC3}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{A3D306E1-8D9D-4E3C-928E-DF2FFED85AC3}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{A3D306E1-8D9D-4E3C-928E-DF2FFED85AC3}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.ExportDebug|Any CPU.ActiveCfg = Release|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.ExportDebug|Any CPU.Build.0 = Release|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{553453AF-BFF8-4EE5-8AF8-8603B7BDBE52}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

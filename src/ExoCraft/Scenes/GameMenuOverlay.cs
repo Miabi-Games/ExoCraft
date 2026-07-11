@@ -1,4 +1,4 @@
-using ExoCraft.Globals;
+using ExoCraft.Framework;
 
 using Godot;
 

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cxdifdh3ut0d5"]
 
 [ext_resource type="Script" uid="uid://cxixtgqanua5b" path="res://Scenes/GameScreen.cs" id="1_4v8sn"]
-[ext_resource type="PackedScene" uid="uid://cdjclyyegkvqa" path="res://Scenes/GameWorld.tscn" id="1_qy101"]
+[ext_resource type="PackedScene" uid="uid://cdjclyyegkvqa" path="res://Scenes/VisualWorld.tscn" id="1_qy101"]
+[ext_resource type="PackedScene" uid="uid://6ayry5jgc561" path="res://Scenes/GameSystems.tscn" id="2_rygbo"]
 [ext_resource type="PackedScene" uid="uid://cm0ej68tyhf8n" path="res://Scenes/GameMenuOverlay.tscn" id="3_pv3es"]
 
 [node name="GameScreen" type="Control" unique_id=1531142337]
@@ -13,15 +14,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4v8sn")
 
-[node name="GameWorld" parent="." unique_id=1740151602 instance=ExtResource("1_qy101")]
+[node name="GameSystems" parent="." unique_id=2024360768 instance=ExtResource("2_rygbo")]
+
+[node name="VisualWorld" parent="." unique_id=1740151602 instance=ExtResource("1_qy101")]
 
 [node name="Hud" type="Control" parent="." unique_id=1471812331]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GameMenu" parent="." unique_id=2003233329 instance=ExtResource("3_pv3es")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1

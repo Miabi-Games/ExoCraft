@@ -4,35 +4,13 @@ using System.Collections.Generic;
 
 using MouseMode = Godot.Input.MouseModeEnum;
 
-namespace ExoCraft.Globals;
+namespace ExoCraft.Framework;
 
-public partial class InteractiveOverlayTracker : Node
+public partial class InteractiveOverlayTracker
 {
-    public static InteractiveOverlayTracker Instance { get; private set; } = null!;
+    public static InteractiveOverlayTracker Instance { get; } = new();
 
-    public override void _EnterTree()
-    {
-        if (Instance is not null)
-        {
-            GD.PushError(
-                "VisibleOverlayTracker: Only one instance can be in the " +
-                "scene tree at a time.");
-            return;
-        }
-
-        Instance = this;
-    }
-
-    public override void _ExitTree()
-    {
-        if (Instance == this) Instance = null!;
-    }
-
-    public override void _Ready()
-    {
-        _isReady = true;
-        SyncState();
-    }
+    private InteractiveOverlayTracker() { }
 
     public int Count { get; private set; } = 0;
 
