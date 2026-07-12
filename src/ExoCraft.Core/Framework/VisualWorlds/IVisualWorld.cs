@@ -1,4 +1,4 @@
-namespace ExoCraft.Framework.VisualWorld;
+namespace ExoCraft.Framework.VisualWorlds;
 
 public interface IVisualWorld
 {

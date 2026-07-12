@@ -1,4 +1,5 @@
-using ExoCraft.Framework.VisualWorld;
+using ExoCraft.Framework.SimWorlds;
+using ExoCraft.Framework.VisualWorlds;
 
 namespace ExoCraft.Framework.GameSessions;
 
@@ -15,6 +16,7 @@ public interface IGameSession
 
     // ─────────────────────────────────────────────────────────────────────────
 
+    ISimWorld SimWorld { get; }
     IVisualWorld VisualWorld { get; }
 
     // ─────────────────────────────────────────────────────────────────────────

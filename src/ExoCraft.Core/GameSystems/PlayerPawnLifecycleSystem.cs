@@ -1,25 +1,42 @@
+using DefaultEcs;
+
+using ExoCraft.EntityComponents;
 using ExoCraft.Framework.GameSystems;
-using ExoCraft.Framework.VisualWorld;
+using ExoCraft.Framework.SimWorlds;
+using ExoCraft.Framework.VisualWorlds;
 
 namespace ExoCraft.GameSystems;
 
 public class PlayerPawnLifecycleSystem : GameSystem
 {
-    public PlayerPawnLifecycleSystem(IVisualWorld visualWorld)
+    public PlayerPawnLifecycleSystem(
+        ISimWorld simWorld,
+        IVisualWorld visualWorld)
     {
+        _ecsWorld = simWorld.EcsWorld;
         _visualWorld = visualWorld;
     }
 
     public override void Initialize()
     {
-        _playerPawn = _visualWorld.CreatePlayerPawn();
+        var visualPawn = _visualWorld.CreatePlayerPawn();
+
+        _entity = _ecsWorld.CreateEntity();
+
+        _entity.Set<PlayerPawn>(new());
+        _entity.Set<IVisualPawn>(visualPawn);
     }
 
     public override void Shutdown()
     {
-        _playerPawn?.Free();
+        var visualPawn = _entity.Get<IVisualPawn>();
+
+        visualPawn.Free();
+        _entity.Dispose();
     }
 
+    private readonly World _ecsWorld;
     private readonly IVisualWorld _visualWorld;
-    private IVisualPawn? _playerPawn;
+
+    private Entity _entity;
 }

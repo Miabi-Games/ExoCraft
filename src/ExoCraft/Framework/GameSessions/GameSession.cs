@@ -1,4 +1,5 @@
-using ExoCraft.Framework.VisualWorld;
+using ExoCraft.Framework.SimWorlds;
+using ExoCraft.Framework.VisualWorlds;
 
 using Godot;
 
@@ -111,6 +112,7 @@ public sealed class GameSession : IGameSession, IDisposable
             return;
         }
 
+        SimWorld = services.SimWorld;
         VisualWorld = services.VisualWorld;
 
         SessionState = GameSessionState.Initialized;
@@ -138,6 +140,7 @@ public sealed class GameSession : IGameSession, IDisposable
 
     // ─────────────────────────────────────────────────────────────────────────
 
+    public ISimWorld SimWorld { get; private set; } = null!;
     public IVisualWorld VisualWorld { get; private set; } = null!;
 
     // ─────────────────────────────────────────────────────────────────────────

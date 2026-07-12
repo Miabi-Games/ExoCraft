@@ -1,7 +1,8 @@
 using ExoCraft.Framework.GameSessions;
 using ExoCraft.Framework.GameSystems;
 using ExoCraft.Framework.ScreenLayers;
-using ExoCraft.Framework.VisualWorld;
+using ExoCraft.Framework.SimWorlds;
+using ExoCraft.Framework.VisualWorlds;
 
 using Godot;
 
@@ -31,23 +32,13 @@ public partial class GameScreen : RootScreenLayer
         }
         finally
         {
-            if (_gameSession is not null)
-            {
-                _gameSession.Dispose();
-                _gameSession = null!;
-            }
+            DisposeGameSession();
         }
     }
 
     public override void _ExitTree()
     {
-        // in case ExitScreenLayer wasn't called
-
-        if (_gameSession is not null)
-        {
-            _gameSession.Dispose();
-            _gameSession = null!;
-        }
+        DisposeGameSession();
     }
 
     public override void _Process(double delta)
@@ -79,9 +70,12 @@ public partial class GameScreen : RootScreenLayer
 
     private void InitializeGameSession()
     {
+        _simWorld = new();
+
         var services = new GameSessionServices
         {
             VisualWorld = GetNode<IVisualWorld>("%VisualWorld"),
+            SimWorld = _simWorld,
         };
 
         var settings = new GameSessionSettings();
@@ -93,6 +87,17 @@ public partial class GameScreen : RootScreenLayer
 
         _gameSession.Initialize(services, settings);
         _gameSession.Start();
+    }
+
+    private void DisposeGameSession()
+    {
+        if (_gameSession is null) return;
+
+        _gameSession.Dispose();
+        _gameSession = null!;
+
+        _simWorld.Dispose();
+        _simWorld = null!;
     }
 
     private void InitializeGameSystems()
@@ -108,6 +113,8 @@ public partial class GameScreen : RootScreenLayer
     }
 
     GameMenuOverlay _gameMenu = null!;
-    GameSession _gameSession = null!;
     GameSystemRootNode _gameSystems = null!;
+
+    GameSession _gameSession = null!;
+    SimWorld _simWorld = null!;
 }

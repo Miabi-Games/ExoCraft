@@ -1,4 +1,4 @@
-using ExoCraft.Framework.VisualWorld;
+using ExoCraft.Framework.VisualWorlds;
 
 using Godot;
 

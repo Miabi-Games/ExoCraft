@@ -11,6 +11,10 @@ public partial class PlayerPawnLifecycleSystemNode
 {
     protected override PlayerPawnLifecycleSystem CreateHostedSystem()
     {
-        return new(GameSession.Instance.VisualWorld);
+        var gameSession = GameSession.Instance;
+
+        return new(
+            gameSession.SimWorld,
+            gameSession.VisualWorld);
     }
 }
