@@ -181,4 +181,81 @@ internal class double3basis_Tests
             Assert.That(value.z, Is.EqualTo(new double3(13, 23, 33)));
         }
     }
+
+    [Test]
+    public void Test_006_RotateLocalX_ShouldRotateAroundLocalXAxis()
+    {
+        double3basis value = new(
+            0, 0, -1,
+            0, 1, 0,
+            1, 0, 0);
+        double3 original_x = value.x;
+
+        value.rotate_local_x(System.Math.PI / 2.0);
+
+        AssertBasisIsApproximatelyEqual(
+            value,
+            new double3basis(
+                0, -1, 0,
+                0, 0, -1,
+                1, 0, 0));
+    }
+
+    [Test]
+    public void Test_007_RotateLocalY_ShouldRotateAroundLocalYAxis()
+    {
+        double3basis value = new(
+            1, 0, 0,
+            0, 0, -1,
+            0, 1, 0);
+
+        value.rotate_local_y(System.Math.PI / 2.0);
+
+        AssertBasisIsApproximatelyEqual(
+            value,
+            new double3basis(
+                0, 0, 1,
+                1, 0, 0,
+                0, 1, 0));
+    }
+
+    [Test]
+    public void Test_008_RotateParentY_ShouldRotateAroundParentYAxis()
+    {
+        double3basis value = new(
+            1, 0, 0,
+            0, 0, -1,
+            0, 1, 0);
+
+        value.rotate_parent_y(System.Math.PI / 2.0);
+
+        AssertBasisIsApproximatelyEqual(
+            value,
+            new double3basis(
+                0, 1, 0,
+                0, 0, -1,
+                -1, 0, 0));
+    }
+
+    private static void AssertBasisIsApproximatelyEqual(
+        double3basis actual,
+        double3basis expected)
+    {
+        const double tolerance = 1e-12;
+
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(actual.e11, Is.EqualTo(expected.e11).Within(tolerance));
+            Assert.That(actual.e12, Is.EqualTo(expected.e12).Within(tolerance));
+            Assert.That(actual.e13, Is.EqualTo(expected.e13).Within(tolerance));
+
+            Assert.That(actual.e21, Is.EqualTo(expected.e21).Within(tolerance));
+            Assert.That(actual.e22, Is.EqualTo(expected.e22).Within(tolerance));
+            Assert.That(actual.e23, Is.EqualTo(expected.e23).Within(tolerance));
+
+            Assert.That(actual.e31, Is.EqualTo(expected.e31).Within(tolerance));
+            Assert.That(actual.e32, Is.EqualTo(expected.e32).Within(tolerance));
+            Assert.That(actual.e33, Is.EqualTo(expected.e33).Within(tolerance));
+        }
+    }
 }

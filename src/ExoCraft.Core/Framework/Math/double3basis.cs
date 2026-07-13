@@ -74,5 +74,49 @@ public record struct double3basis
     public static implicit operator double3basis(in (double3 x, double3 y, double3 z) value)
         => new(value.x, value.y, value.z);
 
+    /// <summary>
+    /// Rotates this basis around its local x-axis by an angle in radians.
+    /// </summary>
+    public void rotate_local_x(double angle)
+    {
+        (double sin, double cos) = System.Math.SinCos(angle);
+
+        double3 original_y = y;
+        y = cos * y + sin * z;
+        z = -sin * original_y + cos * z;
+    }
+
+    /// <summary>
+    /// Rotates this basis around its local y-axis by an angle in radians.
+    /// </summary>
+    public void rotate_local_y(double angle)
+    {
+        (double sin, double cos) = System.Math.SinCos(angle);
+
+        double3 original_x = x;
+        x = cos * x - sin * z;
+        z = sin * original_x + cos * z;
+    }
+
+    /// <summary>
+    /// Rotates this basis around its parent-space y-axis by an angle in radians.
+    /// </summary>
+    public void rotate_parent_y(double angle)
+    {
+        (double sin, double cos) = System.Math.SinCos(angle);
+
+        double original_x_x = x.x;
+        x.x = cos * x.x + sin * x.z;
+        x.z = -sin * original_x_x + cos * x.z;
+
+        double original_y_x = y.x;
+        y.x = cos * y.x + sin * y.z;
+        y.z = -sin * original_y_x + cos * y.z;
+
+        double original_z_x = z.x;
+        z.x = cos * z.x + sin * z.z;
+        z.z = -sin * original_z_x + cos * z.z;
+    }
+
     // ─────────────────────────────────────────────────────────────────────────
 }
