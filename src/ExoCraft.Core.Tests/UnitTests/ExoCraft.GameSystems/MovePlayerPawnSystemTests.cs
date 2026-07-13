@@ -31,7 +31,7 @@ public class MovePlayerPawnSystemTests
 
         Assert.That(
             pawn.Position.position,
-            Is.EqualTo(new double3(2.5, -1.25, -0.625)));
+            Is.EqualTo(new double3(2.5, 0.0, -0.625)));
     }
 
     [Test]
@@ -85,27 +85,17 @@ public class MovePlayerPawnSystemTests
     }
 
     [Test]
-    public void Test_005_UpdateMethod_ShouldMoveAllPlayerPawns()
+    public void Test_005_UpdateMethod_ShouldIgnoreVerticalMovementInput()
     {
         using var fixture = new TestFixture();
-        var firstPawn = fixture.CreatePlayerPawn();
-        var secondPawn = fixture.CreatePlayerPawn();
+        var pawn = fixture.CreatePlayerPawn();
         fixture.SetInput(
             movement: float3.up,
             rotation: float3.zero);
 
         fixture.System.Update(0.25);
 
-        double3 expectedPosition = (0.0, 1.25, 0.0);
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(
-                firstPawn.Position.position,
-                Is.EqualTo(expectedPosition));
-            Assert.That(
-                secondPawn.Position.position,
-                Is.EqualTo(expectedPosition));
-        }
+        Assert.That(pawn.Position.position, Is.EqualTo(double3.zero));
     }
 
     private static void AssertBasisIsApproximatelyEqual(

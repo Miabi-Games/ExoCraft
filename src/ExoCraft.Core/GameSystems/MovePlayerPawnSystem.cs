@@ -54,7 +54,6 @@ public class MovePlayerPawnSystem : GameSystem
         double3basis rotation = pawn.Position.rotation;
         double3 movement =
             movementInput.x * rotation.x +
-            movementInput.y * rotation.y +
             movementInput.z * rotation.z;
 
         pawn.Position.position += distance * movement;

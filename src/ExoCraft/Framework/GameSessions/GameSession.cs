@@ -1,3 +1,4 @@
+using ExoCraft.Framework.InputProviders;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.Framework.VisualWorlds;
 
@@ -112,6 +113,7 @@ public sealed class GameSession : IGameSession, IDisposable
             return;
         }
 
+        InputProvider = services.InputProvider;
         SimWorld = services.SimWorld;
         VisualWorld = services.VisualWorld;
 
@@ -140,6 +142,7 @@ public sealed class GameSession : IGameSession, IDisposable
 
     // ─────────────────────────────────────────────────────────────────────────
 
+    public IInputProvider InputProvider { get; private set; } = null!;
     public ISimWorld SimWorld { get; private set; } = null!;
     public IVisualWorld VisualWorld { get; private set; } = null!;
 

@@ -1,5 +1,6 @@
 using ExoCraft.Framework.GameSessions;
 using ExoCraft.Framework.GameSystems;
+using ExoCraft.Framework.InputProviders;
 using ExoCraft.Framework.ScreenLayers;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.Framework.VisualWorlds;
@@ -74,8 +75,9 @@ public partial class GameScreen : RootScreenLayer
 
         var services = new GameSessionServices
         {
-            VisualWorld = GetNode<IVisualWorld>("%VisualWorld"),
+            InputProvider = _inputProvider,
             SimWorld = _simWorld,
+            VisualWorld = GetNode<IVisualWorld>("%VisualWorld"),
         };
 
         var settings = new GameSessionSettings();
@@ -110,10 +112,12 @@ public partial class GameScreen : RootScreenLayer
     {
         _gameMenu = GetNode<GameMenuOverlay>("%GameMenu");
         _gameSystems = GetNode<GameSystemRootNode>("GameSystems");
+        _inputProvider = GetNode<InputProvider>("%InputProvider");
     }
 
     GameMenuOverlay _gameMenu = null!;
     GameSystemRootNode _gameSystems = null!;
+    InputProvider _inputProvider = null!;
 
     GameSession _gameSession = null!;
     SimWorld _simWorld = null!;

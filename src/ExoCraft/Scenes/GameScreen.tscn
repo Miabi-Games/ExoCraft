@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxixtgqanua5b" path="res://Scenes/GameScreen.cs" id="1_4v8sn"]
 [ext_resource type="PackedScene" uid="uid://cdjclyyegkvqa" path="res://Scenes/VisualWorld.tscn" id="1_qy101"]
+[ext_resource type="Script" uid="uid://boqc8qkgdtecp" path="res://Framework/InputProviders/InputProvider.cs" id="2_input"]
 [ext_resource type="PackedScene" uid="uid://6ayry5jgc561" path="res://Scenes/GameSystems.tscn" id="2_rygbo"]
 [ext_resource type="PackedScene" uid="uid://cm0ej68tyhf8n" path="res://Scenes/GameMenuOverlay.tscn" id="3_pv3es"]
 
@@ -14,6 +15,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4v8sn")
 metadata/_custom_type_script = "uid://c1s33tu7nkpox"
+
+[node name="InputProvider" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_input")
+metadata/_custom_type_script = "uid://boqc8qkgdtecp"
 
 [node name="GameSystems" parent="." unique_id=2024360768 instance=ExtResource("2_rygbo")]
 

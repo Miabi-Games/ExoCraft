@@ -1,3 +1,4 @@
+using ExoCraft.Framework.InputProviders;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.Framework.VisualWorlds;
 
@@ -16,6 +17,7 @@ public interface IGameSession
 
     // ─────────────────────────────────────────────────────────────────────────
 
+    IInputProvider InputProvider { get; }
     ISimWorld SimWorld { get; }
     IVisualWorld VisualWorld { get; }
 

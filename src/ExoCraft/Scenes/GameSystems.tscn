@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://xukibbwvhdcj" path="res://Framework/GameSystems/GameSystemGroupNode.cs" id="2_y407s"]
 [ext_resource type="Script" uid="uid://bmassqgif5bbi" path="res://GameSystems/PlayerPawnLifecycleSystemNode.cs" id="3_pi0pb"]
 [ext_resource type="Script" uid="uid://lv4w0sscffrc" path="res://GameSystems/SyncVisualPawnsSystemNode.cs" id="4_sync"]
+[ext_resource type="Script" uid="uid://b26j310rtwwep" path="res://GameSystems/MovePlayerPawnSystemNode.cs" id="5_move"]
 
 [node name="GameSystems" type="Node" unique_id=2024360768]
 script = ExtResource("1_xgtsm")
@@ -20,6 +21,10 @@ metadata/_custom_type_script = "uid://bmassqgif5bbi"
 [node name="UpdateSystemGroup" type="Node" parent="." unique_id=20254252]
 script = ExtResource("2_y407s")
 metadata/_custom_type_script = "uid://xukibbwvhdcj"
+
+[node name="MovePlayerPawnSystem" type="Node" parent="UpdateSystemGroup"]
+script = ExtResource("5_move")
+metadata/_custom_type_script = "uid://b26j310rtwwep"
 
 [node name="PrepareRenderSystemGroup" type="Node" parent="." unique_id=1242709698]
 script = ExtResource("2_y407s")
