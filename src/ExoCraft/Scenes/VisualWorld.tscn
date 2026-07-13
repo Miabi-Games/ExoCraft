@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cdjclyyegkvqa"]
 
 [ext_resource type="Script" uid="uid://b7gd7vgs18ofb" path="res://Scenes/VisualWorld.cs" id="1_wllao"]
+[ext_resource type="Material" uid="uid://sybk4we5bpih" path="res://Materials/GrassPrototypeMaterial.tres" id="2_omw4v"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_53j0q"]
 
@@ -15,6 +16,12 @@ ambient_light_sky_contribution = 0.85
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_tnnpc"]
 auto_exposure_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7ljxn"]
+material = ExtResource("2_omw4v")
+top_radius = 10.0
+bottom_radius = 10.0
+height = 0.5
 
 [node name="VisualWorld" type="Node3D" unique_id=1740151602]
 script = ExtResource("1_wllao")
@@ -32,3 +39,7 @@ transform = Transform3D(-1, -8.444392e-08, -2.2626683e-08, 0, 0.25881907, -0.965
 
 [node name="MainCamera" type="Camera3D" parent="." unique_id=622522759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 3)
+
+[node name="GroundMarker" type="MeshInstance3D" parent="." unique_id=790465256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("CylinderMesh_7ljxn")

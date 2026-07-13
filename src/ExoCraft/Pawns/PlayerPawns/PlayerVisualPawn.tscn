@@ -1,14 +1,26 @@
 [gd_scene format=3 uid="uid://b7q76qnuwidcb"]
 
 [ext_resource type="Script" uid="uid://3cermvanyut5" path="res://Pawns/PlayerPawns/PlayerVisualPawn.cs" id="1_gcg50"]
+[ext_resource type="Material" uid="uid://diupxjw7tv57r" path="res://Materials/PlayerVisualPawn_BodyMat.tres" id="2_xq2nt"]
+[ext_resource type="Material" uid="uid://b0501sn2avelc" path="res://Materials/PlayerVisualPawn_VisorMat.tres" id="3_r3f7u"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ywpc4"]
+material = ExtResource("2_xq2nt")
 radius = 0.45
 height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7ljxn"]
+material = ExtResource("3_r3f7u")
+radius = 0.15
+height = 0.5
 
 [node name="PlayerVisualPawn" type="Node3D" unique_id=1129590567]
 script = ExtResource("1_gcg50")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2077081274]
+[node name="MeshInstance3D_Body" type="MeshInstance3D" parent="." unique_id=2077081274]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CapsuleMesh_ywpc4")
+
+[node name="MeshInstance3D_Visor" type="MeshInstance3D" parent="." unique_id=1532633934]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1.25, -0.4)
+mesh = SubResource("CapsuleMesh_7ljxn")
