@@ -3,8 +3,8 @@ using ExoCraft.Framework.VisualWorlds;
 
 namespace ExoCraft.EntityComponents;
 
-public class Pawn
+public struct Pawn
 {
     public IVisualPawn? VisualPawn;
-    public double3xform Position = double3xform.identity;
+    public double3xform Transform;
 }

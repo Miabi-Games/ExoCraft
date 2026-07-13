@@ -1,6 +1,7 @@
 using DefaultEcs;
 
 using ExoCraft.EntityComponents;
+using ExoCraft.Framework.Math;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.Framework.VisualWorlds;
 using ExoCraft.GameSystems;
@@ -38,11 +39,20 @@ public class PlayerPawnLifecycleSystemTests
         var entity = fixture.GetPlayerEntityCreated();
 
         Assert.That(entity.Has<Pawn>(), Is.True);
-        Assert.That(entity.Get<Pawn>()?.VisualPawn, Is.SameAs(fixture.ExpectedVisualPawn));
+        Assert.That(entity.Get<Pawn>().VisualPawn, Is.SameAs(fixture.ExpectedVisualPawn));
     }
 
     [Test]
-    public void Test_003_ShutdownMethod_ShouldDestroyPlayerPawnEntity()
+    public void Test_003_CreatedPlayerEntity_ShouldHaveIdentityTransform()
+    {
+        using var fixture = CreateTestFixture(initializeSystem: true);
+        var entity = fixture.GetPlayerEntityCreated();
+
+        Assert.That(entity.Get<Pawn>().Transform, Is.EqualTo(double3xform.identity));
+    }
+
+    [Test]
+    public void Test_004_ShutdownMethod_ShouldDestroyPlayerPawnEntity()
     {
         using var fixture = CreateTestFixture();
 
@@ -52,7 +62,7 @@ public class PlayerPawnLifecycleSystemTests
     }
 
     [Test]
-    public void Test_004_ShutdownMethod_ShouldFreeTheVisualPawn()
+    public void Test_005_ShutdownMethod_ShouldFreeTheVisualPawn()
     {
         var fixture = CreateTestFixture();
 

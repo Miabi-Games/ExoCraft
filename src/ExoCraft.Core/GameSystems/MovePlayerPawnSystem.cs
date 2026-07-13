@@ -38,35 +38,35 @@ public class MovePlayerPawnSystem : GameSystem
 
         foreach (var entity in _playerPawns.GetEntities())
         {
-            var pawn = entity.Get<Pawn>();
+            ref var pawn = ref entity.Get<Pawn>();
 
-            MovePawn(pawn, movementInput, delta);
-            RotatePawn(pawn, rotationInput, delta);
+            MovePawn(ref pawn, movementInput, delta);
+            RotatePawn(ref pawn, rotationInput, delta);
         }
     }
 
     private static void MovePawn(
-        Pawn pawn,
+        ref Pawn pawn,
         float3 movementInput,
         double delta)
     {
         double distance = MovementSpeed * delta;
-        double3basis rotation = pawn.Position.rotation;
+        double3basis rotation = pawn.Transform.rotation;
         double3 movement =
             movementInput.x * rotation.x +
             movementInput.z * rotation.z;
 
-        pawn.Position.position += distance * movement;
+        pawn.Transform.position += distance * movement;
     }
 
     private static void RotatePawn(
-        Pawn pawn,
+        ref Pawn pawn,
         float3 rotationInput,
         double delta)
     {
         double angle = RotationSpeed * delta;
 
-        pawn.Position.rotation.rotate_parent_y(rotationInput.y * angle);
+        pawn.Transform.rotation.rotate_parent_y(rotationInput.y * angle);
     }
 
     private const double MovementSpeed = 5.0;

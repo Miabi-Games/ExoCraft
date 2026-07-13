@@ -30,7 +30,7 @@ public class SyncVisualPawnsSystem : GameSystem
         foreach (var entity in _pawns.GetEntities())
         {
             var pawn = entity.Get<Pawn>();
-            pawn.VisualPawn?.SyncPosition(pawn.Position);
+            pawn.VisualPawn?.SyncPosition(pawn.Transform);
         }
     }
 

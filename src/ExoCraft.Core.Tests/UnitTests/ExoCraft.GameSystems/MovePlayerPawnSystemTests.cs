@@ -22,7 +22,7 @@ public class MovePlayerPawnSystemTests
     public void Test_001_UpdateMethod_ShouldMovePlayerPawnUsingInputAndDelta()
     {
         using var fixture = new TestFixture();
-        var pawn = fixture.CreatePlayerPawn();
+        var pawnEntity = fixture.CreatePlayerPawn();
         fixture.SetInput(
             movement: (1.0f, -0.5f, -0.25f),
             rotation: float3.zero);
@@ -30,7 +30,7 @@ public class MovePlayerPawnSystemTests
         fixture.System.Update(0.5);
 
         Assert.That(
-            pawn.Position.position,
+            pawnEntity.Get<Pawn>().Transform.position,
             Is.EqualTo(new double3(2.5, 0.0, -0.625)));
     }
 
@@ -40,7 +40,7 @@ public class MovePlayerPawnSystemTests
         using var fixture = new TestFixture();
         var position = double3xform.identity;
         position.rotation.rotate_parent_y(System.Math.PI / 2.0);
-        var pawn = fixture.CreatePlayerPawn(position);
+        var pawnEntity = fixture.CreatePlayerPawn(position);
         fixture.SetInput(
             movement: float3.forward,
             rotation: float3.zero);
@@ -48,7 +48,7 @@ public class MovePlayerPawnSystemTests
         fixture.System.Update(1.0);
 
         AssertDouble3IsApproximatelyEqual(
-            pawn.Position.position,
+            pawnEntity.Get<Pawn>().Transform.position,
             new double3(-5.0, 0.0, 0.0));
     }
 
@@ -56,7 +56,7 @@ public class MovePlayerPawnSystemTests
     public void Test_003_UpdateMethod_ShouldRotatePlayerPawnUsingInputAndDelta()
     {
         using var fixture = new TestFixture();
-        var pawn = fixture.CreatePlayerPawn();
+        var pawnEntity = fixture.CreatePlayerPawn();
         fixture.SetInput(
             movement: float3.zero,
             rotation: (0.0f, 0.75f, 0.0f));
@@ -66,7 +66,7 @@ public class MovePlayerPawnSystemTests
         var expectedRotation = double3basis.identity;
         expectedRotation.rotate_parent_y(System.Math.PI / 2.0);
         AssertBasisIsApproximatelyEqual(
-            pawn.Position.rotation,
+            pawnEntity.Get<Pawn>().Transform.rotation,
             expectedRotation);
     }
 
@@ -74,28 +74,32 @@ public class MovePlayerPawnSystemTests
     public void Test_004_UpdateMethod_ShouldNotMoveNonPlayerPawn()
     {
         using var fixture = new TestFixture();
-        var pawn = fixture.CreatePawn();
+        var pawnEntity = fixture.CreatePawn();
         fixture.SetInput(
             movement: float3.forward,
             rotation: (0.0f, 1.0f, 0.0f));
 
         fixture.System.Update(1.0);
 
-        Assert.That(pawn.Position, Is.EqualTo(double3xform.identity));
+        Assert.That(
+            pawnEntity.Get<Pawn>().Transform,
+            Is.EqualTo(double3xform.identity));
     }
 
     [Test]
     public void Test_005_UpdateMethod_ShouldIgnoreVerticalMovementInput()
     {
         using var fixture = new TestFixture();
-        var pawn = fixture.CreatePlayerPawn();
+        var pawnEntity = fixture.CreatePlayerPawn();
         fixture.SetInput(
             movement: float3.up,
             rotation: float3.zero);
 
         fixture.System.Update(0.25);
 
-        Assert.That(pawn.Position.position, Is.EqualTo(double3.zero));
+        Assert.That(
+            pawnEntity.Get<Pawn>().Transform.position,
+            Is.EqualTo(double3.zero));
     }
 
     private static void AssertBasisIsApproximatelyEqual(
@@ -135,17 +139,17 @@ public class MovePlayerPawnSystemTests
         public Mock<IInputProvider> InputProvider { get; }
         public MovePlayerPawnSystem System { get; }
 
-        public Pawn CreatePawn()
+        public Entity CreatePawn()
         {
             return CreatePawn(double3xform.identity, isPlayer: false);
         }
 
-        public Pawn CreatePlayerPawn()
+        public Entity CreatePlayerPawn()
         {
             return CreatePawn(double3xform.identity, isPlayer: true);
         }
 
-        public Pawn CreatePlayerPawn(double3xform position)
+        public Entity CreatePlayerPawn(double3xform position)
         {
             return CreatePawn(position, isPlayer: true);
         }
@@ -166,18 +170,18 @@ public class MovePlayerPawnSystemTests
             SimWorld.Dispose();
         }
 
-        private Pawn CreatePawn(double3xform position, bool isPlayer)
+        private Entity CreatePawn(double3xform position, bool isPlayer)
         {
             var pawn = new Pawn
             {
-                Position = position,
+                Transform = position,
             };
             Entity entity = SimWorld.EcsWorld.CreateEntity();
             entity.Set(pawn);
 
             if (isPlayer) entity.Set<PlayerPawn>();
 
-            return pawn;
+            return entity;
         }
     }
 }

@@ -1,3 +1,5 @@
+using DefaultEcs;
+
 using ExoCraft.EntityComponents;
 using ExoCraft.Framework.Math;
 using ExoCraft.Framework.SimWorlds;
@@ -54,7 +56,7 @@ public class SyncVisualPawnsSystemTests
     {
         using var fixture = new TestFixture();
         var visualPawn = new Mock<IVisualPawn>();
-        var pawn = fixture.CreatePawn(
+        var pawnEntity = fixture.CreatePawn(
             double3xform.identity,
             visualPawn.Object);
         var expectedPosition = new double3xform(
@@ -62,7 +64,7 @@ public class SyncVisualPawnsSystemTests
             double3basis.identity,
             2.0);
 
-        pawn.Position = expectedPosition;
+        pawnEntity.Get<Pawn>().Transform = expectedPosition;
         fixture.System.Update(1.0 / 60.0);
 
         visualPawn.Verify(
@@ -95,19 +97,19 @@ public class SyncVisualPawnsSystemTests
         public SimWorld SimWorld { get; }
         public SyncVisualPawnsSystem System { get; }
 
-        public Pawn CreatePawn(
+        public Entity CreatePawn(
             double3xform position,
             IVisualPawn? visualPawn)
         {
             var pawn = new Pawn
             {
-                Position = position,
+                Transform = position,
                 VisualPawn = visualPawn,
             };
             var entity = SimWorld.EcsWorld.CreateEntity();
             entity.Set(pawn);
 
-            return pawn;
+            return entity;
         }
 
         public void Dispose()

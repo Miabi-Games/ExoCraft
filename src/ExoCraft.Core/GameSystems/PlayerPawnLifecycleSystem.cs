@@ -2,6 +2,7 @@ using DefaultEcs;
 
 using ExoCraft.EntityComponents;
 using ExoCraft.Framework.GameSystems;
+using ExoCraft.Framework.Math;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.Framework.VisualWorlds;
 
@@ -24,6 +25,7 @@ public class PlayerPawnLifecycleSystem : GameSystem
         var pawn = new Pawn
         {
             VisualPawn = visualPawn,
+            Transform = double3xform.identity,
         };
 
         _entity = _ecsWorld.CreateEntity();
