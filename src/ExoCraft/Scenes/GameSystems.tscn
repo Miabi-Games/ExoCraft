@@ -3,15 +3,28 @@
 [ext_resource type="Script" uid="uid://bmjn8scd4hfbl" path="res://Framework/GameSystems/GameSystemRootNode.cs" id="1_xgtsm"]
 [ext_resource type="Script" uid="uid://xukibbwvhdcj" path="res://Framework/GameSystems/GameSystemGroupNode.cs" id="2_y407s"]
 [ext_resource type="Script" uid="uid://bmassqgif5bbi" path="res://GameSystems/PlayerPawnLifecycleSystemNode.cs" id="3_pi0pb"]
+[ext_resource type="Script" uid="uid://lv4w0sscffrc" path="res://GameSystems/SyncVisualPawnsSystemNode.cs" id="4_sync"]
 
 [node name="GameSystems" type="Node" unique_id=2024360768]
 script = ExtResource("1_xgtsm")
 metadata/_custom_type_script = "uid://bmjn8scd4hfbl"
 
-[node name="LifecycleSystems" type="Node" parent="." unique_id=1077187639]
+[node name="LifecycleSystemGroup" type="Node" parent="." unique_id=1077187639]
 script = ExtResource("2_y407s")
 metadata/_custom_type_script = "uid://xukibbwvhdcj"
 
-[node name="PlayerPawnLifecycleSystemNode" type="Node" parent="LifecycleSystems" unique_id=188162223]
+[node name="PlayerPawnLifecycleSystem" type="Node" parent="LifecycleSystemGroup" unique_id=188162223]
 script = ExtResource("3_pi0pb")
 metadata/_custom_type_script = "uid://bmassqgif5bbi"
+
+[node name="UpdateSystemGroup" type="Node" parent="." unique_id=20254252]
+script = ExtResource("2_y407s")
+metadata/_custom_type_script = "uid://xukibbwvhdcj"
+
+[node name="PrepareRenderSystemGroup" type="Node" parent="." unique_id=1242709698]
+script = ExtResource("2_y407s")
+metadata/_custom_type_script = "uid://xukibbwvhdcj"
+
+[node name="SyncVisualPawnsSystem" type="Node" parent="PrepareRenderSystemGroup" unique_id=1072153976]
+script = ExtResource("4_sync")
+metadata/_custom_type_script = "uid://lv4w0sscffrc"

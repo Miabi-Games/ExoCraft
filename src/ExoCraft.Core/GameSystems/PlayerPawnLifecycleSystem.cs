@@ -21,17 +21,22 @@ public class PlayerPawnLifecycleSystem : GameSystem
     {
         var visualPawn = _visualWorld.CreatePlayerPawn();
 
+        var pawn = new Pawn
+        {
+            VisualPawn = visualPawn,
+        };
+
         _entity = _ecsWorld.CreateEntity();
 
-        _entity.Set<PlayerPawn>(new());
-        _entity.Set<IVisualPawn>(visualPawn);
+        _entity.Set<PlayerPawn>();
+        _entity.Set<Pawn>(pawn);
     }
 
     public override void Shutdown()
     {
-        var visualPawn = _entity.Get<IVisualPawn>();
+        var pawn = _entity.Get<Pawn>();
 
-        visualPawn.Free();
+        pawn.VisualPawn?.Free();
         _entity.Dispose();
     }
 

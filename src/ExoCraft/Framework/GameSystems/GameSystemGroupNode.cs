@@ -23,7 +23,10 @@ public partial class GameSystemGroupNode : GameSystemNode
 
     public override void Shutdown()
     {
-        foreach (var child in GetChildren())
+        var children = GetChildren();
+        children.Reverse();
+
+        foreach (var child in children)
         {
             if (child is GameSystemNode system) system.Shutdown();
         }

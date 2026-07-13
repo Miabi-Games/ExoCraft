@@ -37,8 +37,8 @@ public class PlayerPawnLifecycleSystemTests
         using var fixture = CreateTestFixture(initializeSystem: true);
         var entity = fixture.GetPlayerEntityCreated();
 
-        Assert.That(entity.Has<IVisualPawn>(), Is.True);
-        Assert.That(entity.Get<IVisualPawn>(), Is.SameAs(fixture.ExpectedVisualPawn));
+        Assert.That(entity.Has<Pawn>(), Is.True);
+        Assert.That(entity.Get<Pawn>()?.VisualPawn, Is.SameAs(fixture.ExpectedVisualPawn));
     }
 
     [Test]
