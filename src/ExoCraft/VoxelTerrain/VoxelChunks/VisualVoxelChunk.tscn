@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://VoxelTerrain/VoxelChunks/VisualVoxelChunk.cs" id="1_chunk"]
+[ext_resource type="Material" uid="uid://sybk4we5bpih" path="res://Materials/GrassPrototypeMaterial.tres" id="2_material"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_chunk"]
+material = ExtResource("2_material")
+size = Vector3(8, 8, 8)
+
+[node name="VisualVoxelChunk" type="Node3D"]
+script = ExtResource("1_chunk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_chunk")

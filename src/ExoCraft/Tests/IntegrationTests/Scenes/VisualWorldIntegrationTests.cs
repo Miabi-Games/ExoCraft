@@ -2,6 +2,7 @@ using ExoCraft.Framework.Math;
 using ExoCraft.Framework.VisualWorlds;
 using ExoCraft.Pawns;
 using ExoCraft.Scenes;
+using ExoCraft.VoxelTerrain.VoxelChunks;
 
 using GdUnit4;
 
@@ -88,6 +89,74 @@ public class VisualWorldIntegrationTests
         finally
         {
             visualPawn.Free();
+        }
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CreatingVoxelChunkInstantiatesEightMeterCube()
+    {
+        ISceneRunner runner = ISceneRunner.Load("res://Scenes/VisualWorld.tscn");
+        var visualWorld = runner.Scene() as VisualWorld ??
+            throw new InvalidOperationException(
+                "The visual world scene did not instantiate a VisualWorld root.");
+        IVisualVoxelChunk visualChunk = visualWorld.CreateVoxelChunk();
+        var chunkNode = visualChunk as VisualVoxelChunk ??
+            throw new InvalidOperationException(
+                "The voxel chunk scene did not instantiate a VisualVoxelChunk.");
+
+        try
+        {
+            var meshInstance = chunkNode.GetNode<MeshInstance3D>("MeshInstance3D");
+            var mesh = meshInstance.Mesh as BoxMesh ??
+                throw new InvalidOperationException(
+                    "The voxel chunk scene did not contain a box mesh.");
+
+            AssertThat(mesh.Size).IsEqual(new Vector3(8.0f, 8.0f, 8.0f));
+        }
+        finally
+        {
+            visualChunk.Free();
+        }
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void SyncingVoxelChunkSubtractsCameraPosition()
+    {
+        ISceneRunner runner = ISceneRunner.Load("res://Scenes/VisualWorld.tscn");
+        var visualWorld = runner.Scene() as VisualWorld ??
+            throw new InvalidOperationException(
+                "The visual world scene did not instantiate a VisualWorld root.");
+        var cameraPosition = new double3(
+            1000000000000.0,
+            -2000000000000.0,
+            3000000000000.0);
+        var expectedPosition = new double3(-12.0, -4.0, 12.0);
+        IVisualVoxelChunk visualChunk = visualWorld.CreateVoxelChunk();
+        var chunkNode = visualChunk as VisualVoxelChunk ??
+            throw new InvalidOperationException(
+                "The voxel chunk scene did not instantiate a VisualVoxelChunk.");
+
+        try
+        {
+            visualWorld.CameraTransform = new(
+                cameraPosition,
+                double3basis.identity,
+                1.0);
+            visualWorld.SyncVoxelChunk(
+                visualChunk,
+                new(
+                    cameraPosition + expectedPosition,
+                    double3basis.identity,
+                    1.0));
+
+            AssertThat(chunkNode.GlobalPosition)
+                .IsEqualApprox(ToVector3(expectedPosition), Approximation);
+        }
+        finally
+        {
+            visualChunk.Free();
         }
     }
 

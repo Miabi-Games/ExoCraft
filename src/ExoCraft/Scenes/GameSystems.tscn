@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://blqn7ps8b57hs" path="res://GameSystems/CameraLifecycleSystemNode.cs" id="7_camera_lifecycle"]
 [ext_resource type="Script" uid="uid://col2bvrnr70h5" path="res://GameSystems/SyncVisualCameraSystemNode.cs" id="8_camera_sync"]
 [ext_resource type="Script" uid="uid://cusujr04wl21b" path="res://GameSystems/FollowChaseCamSystemNode.cs" id="9_camera_follow"]
+[ext_resource type="Script" uid="uid://03vgidx6i2eq" path="res://GameSystems/VoxelChunkLifecycleSystemNode.cs" id="10_chunk_lifecycle"]
+[ext_resource type="Script" uid="uid://bbfqb3sq4e1es" path="res://GameSystems/SyncVisualVoxelChunksSystemNode.cs" id="11_chunk_sync"]
 
 [node name="GameSystems" type="Node" unique_id=2024360768]
 script = ExtResource("1_xgtsm")
@@ -25,6 +27,10 @@ metadata/_custom_type_script = "uid://bmassqgif5bbi"
 [node name="CameraLifecycleSystem" type="Node" parent="LifecycleSystemGroup" unique_id=128454364]
 script = ExtResource("7_camera_lifecycle")
 metadata/_custom_type_script = "uid://blqn7ps8b57hs"
+
+[node name="VoxelChunkLifecycleSystem" type="Node" parent="LifecycleSystemGroup" unique_id=1954776363]
+script = ExtResource("10_chunk_lifecycle")
+metadata/_custom_type_script = "uid://03vgidx6i2eq"
 
 [node name="UpdateSystemGroup" type="Node" parent="." unique_id=20254252]
 script = ExtResource("2_y407s")
@@ -53,3 +59,7 @@ metadata/_custom_type_script = "uid://col2bvrnr70h5"
 [node name="SyncVisualPawnsSystem" type="Node" parent="PrepareRenderSystemGroup" unique_id=1072153976]
 script = ExtResource("4_sync")
 metadata/_custom_type_script = "uid://lv4w0sscffrc"
+
+[node name="SyncVisualVoxelChunksSystem" type="Node" parent="PrepareRenderSystemGroup" unique_id=1488250198]
+script = ExtResource("11_chunk_sync")
+metadata/_custom_type_script = "uid://bbfqb3sq4e1es"

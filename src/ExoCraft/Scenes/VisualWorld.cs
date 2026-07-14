@@ -15,6 +15,9 @@ public partial class VisualWorld : Node3D, IVisualWorld
     [Export(PropertyHint.File, "*.tscn")]
     public string PlayerPawnPath { get; set; } = "";
 
+    [Export(PropertyHint.File, "*.tscn")]
+    public string VoxelChunkPath { get; set; } = "";
+
     // ─────────────────────────────────────────────────────────────────────────
 
     public override void _Ready()
@@ -22,12 +25,16 @@ public partial class VisualWorld : Node3D, IVisualWorld
         _mainCamera = GetNode<Camera3D>("MainCamera");
 
         ApplyCameraTransform();
-        PreloadPawns();
+        PreloadVisualScenes();
     }
 
-    private void PreloadPawns()
+    private void PreloadVisualScenes()
     {
-        PreloadPawn(nameof(_playerPawnScene), ref _playerPawnScene, PlayerPawnPath);
+        PreloadScene(nameof(_playerPawnScene), ref _playerPawnScene, PlayerPawnPath);
+        PreloadScene(
+            nameof(_voxelChunkScene),
+            ref _voxelChunkScene,
+            VoxelChunkPath);
     }
 
     public double3xform CameraTransform
@@ -59,11 +66,37 @@ public partial class VisualWorld : Node3D, IVisualWorld
         visualPawn.SyncPosition(transform);
     }
 
+    public void SyncVoxelChunk(
+        IVisualVoxelChunk visualVoxelChunk,
+        double3xform transform)
+    {
+        transform.position -= _cameraTransform.position;
+        visualVoxelChunk.SyncPosition(transform);
+    }
+
     // ─────────────────────────────────────────────────────────────────────────
 
     public IVisualPawn CreatePlayerPawn()
     {
         return InstantiatePawn(nameof(_playerPawnScene), _playerPawnScene);
+    }
+
+    public IVisualVoxelChunk CreateVoxelChunk()
+    {
+        var name = GetDisplayName(nameof(_voxelChunkScene));
+        Node node = _voxelChunkScene.Instantiate();
+
+        if (node is not IVisualVoxelChunk voxelChunk)
+        {
+            string message =
+                $"VisualWorld: Scene specified for {name} is not a visual voxel chunk";
+            GD.PushError(message);
+            node.QueueFree();
+            throw new Exception(message);
+        }
+
+        AddChild(node);
+        return voxelChunk;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -91,7 +124,10 @@ public partial class VisualWorld : Node3D, IVisualWorld
         return pawn;
     }
 
-    private static void PreloadPawn(string sceneFieldName, ref PackedScene scene, string path)
+    private static void PreloadScene(
+        string sceneFieldName,
+        ref PackedScene scene,
+        string path)
     {
         var name = GetDisplayName(sceneFieldName);
 
@@ -120,6 +156,7 @@ public partial class VisualWorld : Node3D, IVisualWorld
     // ─────────────────────────────────────────────────────────────────────────
 
     private PackedScene _playerPawnScene = null!;
+    private PackedScene _voxelChunkScene = null!;
     private Camera3D _mainCamera = null!;
 
     private double3xform _cameraTransform = double3xform.identity;
