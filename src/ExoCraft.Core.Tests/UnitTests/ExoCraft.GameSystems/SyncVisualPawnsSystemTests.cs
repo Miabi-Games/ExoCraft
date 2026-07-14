@@ -43,11 +43,11 @@ public class SyncVisualPawnsSystemTests
 
         fixture.System.Update(1.0 / 60.0);
 
-        firstVisualPawn.Verify(
-            pawn => pawn.SyncPosition(firstPosition),
+        fixture.VisualWorldMock.Verify(
+            world => world.SyncPawn(firstVisualPawn.Object, firstPosition),
             Times.Once);
-        secondVisualPawn.Verify(
-            pawn => pawn.SyncPosition(secondPosition),
+        fixture.VisualWorldMock.Verify(
+            world => world.SyncPawn(secondVisualPawn.Object, secondPosition),
             Times.Once);
     }
 
@@ -67,8 +67,8 @@ public class SyncVisualPawnsSystemTests
         pawnEntity.Get<Pawn>().Transform = expectedPosition;
         fixture.System.Update(1.0 / 60.0);
 
-        visualPawn.Verify(
-            visual => visual.SyncPosition(expectedPosition),
+        fixture.VisualWorldMock.Verify(
+            world => world.SyncPawn(visualPawn.Object, expectedPosition),
             Times.Once);
     }
 
@@ -90,11 +90,13 @@ public class SyncVisualPawnsSystemTests
         public TestFixture()
         {
             SimWorld = new();
-            System = new(SimWorld);
+            VisualWorldMock = new();
+            System = new(SimWorld, VisualWorldMock.Object);
             System.Initialize();
         }
 
         public SimWorld SimWorld { get; }
+        public Mock<IVisualWorld> VisualWorldMock { get; }
         public SyncVisualPawnsSystem System { get; }
 
         public Entity CreatePawn(

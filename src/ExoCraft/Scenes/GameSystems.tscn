@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://lv4w0sscffrc" path="res://GameSystems/SyncVisualPawnsSystemNode.cs" id="4_sync"]
 [ext_resource type="Script" uid="uid://b26j310rtwwep" path="res://GameSystems/MovePlayerPawnSystemNode.cs" id="5_move"]
 [ext_resource type="Script" uid="uid://b5832o0c170tc" path="res://GameSystems/UpdatePlayerInputSystemNode.cs" id="6_input"]
+[ext_resource type="Script" uid="uid://blqn7ps8b57hs" path="res://GameSystems/CameraLifecycleSystemNode.cs" id="7_camera_lifecycle"]
+[ext_resource type="Script" uid="uid://col2bvrnr70h5" path="res://GameSystems/SyncVisualCameraSystemNode.cs" id="8_camera_sync"]
 
 [node name="GameSystems" type="Node" unique_id=2024360768]
 script = ExtResource("1_xgtsm")
@@ -14,6 +16,10 @@ metadata/_custom_type_script = "uid://bmjn8scd4hfbl"
 [node name="LifecycleSystemGroup" type="Node" parent="." unique_id=1077187639]
 script = ExtResource("2_y407s")
 metadata/_custom_type_script = "uid://xukibbwvhdcj"
+
+[node name="CameraLifecycleSystem" type="Node" parent="LifecycleSystemGroup" unique_id=128454364]
+script = ExtResource("7_camera_lifecycle")
+metadata/_custom_type_script = "uid://blqn7ps8b57hs"
 
 [node name="PlayerPawnLifecycleSystem" type="Node" parent="LifecycleSystemGroup" unique_id=188162223]
 script = ExtResource("3_pi0pb")
@@ -34,6 +40,10 @@ metadata/_custom_type_script = "uid://b26j310rtwwep"
 [node name="PrepareRenderSystemGroup" type="Node" parent="." unique_id=1242709698]
 script = ExtResource("2_y407s")
 metadata/_custom_type_script = "uid://xukibbwvhdcj"
+
+[node name="SyncVisualCameraSystem" type="Node" parent="PrepareRenderSystemGroup" unique_id=578696818]
+script = ExtResource("8_camera_sync")
+metadata/_custom_type_script = "uid://col2bvrnr70h5"
 
 [node name="SyncVisualPawnsSystem" type="Node" parent="PrepareRenderSystemGroup" unique_id=1072153976]
 script = ExtResource("4_sync")

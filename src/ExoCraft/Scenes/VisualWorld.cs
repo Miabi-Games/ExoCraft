@@ -1,3 +1,4 @@
+using ExoCraft.Framework.Math;
 using ExoCraft.Framework.VisualWorlds;
 
 using Godot;
@@ -18,12 +19,44 @@ public partial class VisualWorld : Node3D, IVisualWorld
 
     public override void _Ready()
     {
+        _mainCamera = GetNode<Camera3D>("MainCamera");
+
+        ApplyCameraTransform();
         PreloadPawns();
     }
 
     private void PreloadPawns()
     {
         PreloadPawn(nameof(_playerPawnScene), ref _playerPawnScene, PlayerPawnPath);
+    }
+
+    public double3xform CameraTransform
+    {
+        get => _cameraTransform;
+        set
+        {
+            _cameraTransform = value;
+            ApplyCameraTransform();
+        }
+    }
+
+    private void ApplyCameraTransform()
+    {
+        if (_mainCamera is null) return;
+
+        var rotation = _cameraTransform.rotation;
+        var basis = new Basis(
+            ToVector3(rotation.x),
+            ToVector3(rotation.y),
+            ToVector3(rotation.z));
+
+        _mainCamera.Transform = new(basis, Vector3.Zero);
+    }
+
+    public void SyncPawn(IVisualPawn visualPawn, double3xform transform)
+    {
+        transform.position -= _cameraTransform.position;
+        visualPawn.SyncPosition(transform);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -87,6 +120,9 @@ public partial class VisualWorld : Node3D, IVisualWorld
     // ─────────────────────────────────────────────────────────────────────────
 
     private PackedScene _playerPawnScene = null!;
+    private Camera3D _mainCamera = null!;
+
+    private double3xform _cameraTransform = double3xform.identity;
 
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -111,6 +147,9 @@ public partial class VisualWorld : Node3D, IVisualWorld
 
         return result.ToString();
     }
+
+    private static Vector3 ToVector3(double3 value)
+        => new((float)value.x, (float)value.y, (float)value.z);
 
     // ─────────────────────────────────────────────────────────────────────────
 }

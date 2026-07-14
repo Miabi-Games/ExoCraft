@@ -6,10 +6,10 @@ using Godot;
 namespace ExoCraft.GameSystems;
 
 [GlobalClass]
-public partial class SyncVisualPawnsSystemNode
-    : GameSystemHostNode<SyncVisualPawnsSystem>
+public partial class SyncVisualCameraSystemNode
+    : GameSystemHostNode<SyncVisualCameraSystem>
 {
-    protected override SyncVisualPawnsSystem CreateHostedSystem()
+    protected override SyncVisualCameraSystem CreateHostedSystem()
     {
         var gameSession = GameSession.Instance;
 

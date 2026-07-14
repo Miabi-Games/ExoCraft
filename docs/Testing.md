@@ -3,7 +3,7 @@
 ExoCraft has two automated test layers.
 
 - `ExoCraft.Core.Tests` uses NUnit to test engine-independent simulation logic.
-- Godot regression tests use GdUnit4Net to test previously incorrect scene and
+- Godot integration and regression tests use GdUnit4Net to test scene and
   engine-dependent behavior inside a headless Godot process.
 
 ## Run All Tests
@@ -23,7 +23,7 @@ They are excluded from export configurations.
 
 ## Run Tests in Visual Studio
 
-Godot regression tests can be run from Test Explorer. Visual Studio requires a
+Godot tests can be run from Test Explorer. Visual Studio requires a
 `GODOT_BIN` environment variable containing the path to the Godot 4.7 .NET
 executable. Set it to the same executable referenced by
 `GODOT_4_7_MONO_EXE_PATH`.
@@ -53,10 +53,10 @@ dotnet test src/ExoCraft.Core.Tests/ExoCraft.Core.Tests.csproj
 
 ## Test Scope
 
-Godot regression tests are integration-style tests. The regression label
-describes why a test exists: to prevent a previously incorrect behavior from
-returning. The integration label describes how it works: by exercising several
-Godot components together inside a real scene tree.
+Godot scene tests are integration-style tests because they exercise several
+Godot components together inside a real scene tree. Place general scene and
+engine-boundary coverage under `IntegrationTests`. Reserve `RegressionTests`
+for behavior that previously failed and must be prevented from returning.
 
 These tests are intended for observable engine behavior such as:
 

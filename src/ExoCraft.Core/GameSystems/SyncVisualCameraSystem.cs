@@ -7,9 +7,9 @@ using ExoCraft.Framework.VisualWorlds;
 
 namespace ExoCraft.GameSystems;
 
-public class SyncVisualPawnsSystem : GameSystem
+public class SyncVisualCameraSystem : GameSystem
 {
-    public SyncVisualPawnsSystem(
+    public SyncVisualCameraSystem(
         ISimWorld simWorld,
         IVisualWorld visualWorld)
     {
@@ -19,31 +19,26 @@ public class SyncVisualPawnsSystem : GameSystem
 
     public override void Initialize()
     {
-        _pawns = _ecsWorld.GetEntities()
-            .With<Pawn>()
+        _cameras = _ecsWorld.GetEntities()
+            .With<Camera>()
             .AsSet();
     }
 
     public override void Shutdown()
     {
-        _pawns.Dispose();
+        _cameras.Dispose();
     }
 
     public override void Update(double delta)
     {
-        foreach (var entity in _pawns.GetEntities())
+        foreach (var entity in _cameras.GetEntities())
         {
-            var pawn = entity.Get<Pawn>();
-
-            if (pawn.VisualPawn is { } visualPawn)
-            {
-                _visualWorld.SyncPawn(visualPawn, pawn.Transform);
-            }
+            _visualWorld.CameraTransform = entity.Get<Camera>().Transform;
         }
     }
 
     private readonly World _ecsWorld;
     private readonly IVisualWorld _visualWorld;
 
-    private EntitySet _pawns = null!;
+    private EntitySet _cameras = null!;
 }
