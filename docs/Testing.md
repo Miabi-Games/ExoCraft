@@ -21,6 +21,28 @@ includes both the NUnit and GdUnit4Net tests.
 The Godot test packages and test sources are included only in Debug builds.
 They are excluded from export configurations.
 
+## Run Tests in Visual Studio
+
+Godot regression tests can be run from Test Explorer. Visual Studio requires a
+`GODOT_BIN` environment variable containing the path to the Godot 4.7 .NET
+executable. Set it to the same executable referenced by
+`GODOT_4_7_MONO_EXE_PATH`.
+
+Restart Visual Studio after adding or changing `GODOT_BIN`. Visual Studio reads
+environment variables when it starts, and GdUnit4Net marks tests requiring the
+Godot runtime as skipped when that executable is not available to the test
+process.
+
+If the solution-wide test settings are not already active, use **Test >
+Configure Run Settings > Select Solution Wide runsettings File** and select
+`src/.runsettings`.
+
+`RunTests.ps1` does not require `GODOT_BIN` to be set permanently. The script
+reads the repository-versioned `GODOT_4_7_MONO_EXE_PATH` variable and maps it to
+`GODOT_BIN` for the lifetime of the command-line test process. Test Explorer
+does not invoke that script, so Visual Studio must inherit `GODOT_BIN` directly
+from the environment.
+
 ## Run Core Tests Only
 
 Core tests do not require Godot:
