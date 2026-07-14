@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 using static GdUnit4.Assertions;
 
-namespace ExoCraft.Tests.Integration.Scenes;
+namespace ExoCraft.Tests.RegressionTests.Scenes;
 
 [TestSuite]
-public class GameScreenTests
+public class GameScreenRegressionTests
 {
     [TestCase]
     [RequireGodotRuntime]
@@ -48,7 +48,7 @@ public class GameScreenTests
             if (ScreenLayerManager.TopOverlay == gameMenu)
             {
                 ScreenLayerManager.PopScreenOverlay(
-                    nameof(GameScreenTests), gameMenu);
+                    nameof(GameScreenRegressionTests), gameMenu);
             }
 
             await runner.AwaitInputProcessed();

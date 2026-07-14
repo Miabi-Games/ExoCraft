@@ -3,8 +3,8 @@
 ExoCraft has two automated test layers.
 
 - `ExoCraft.Core.Tests` uses NUnit to test engine-independent simulation logic.
-- Godot integration tests use GdUnit4Net to test scenes and engine-dependent
-  behavior inside a headless Godot process.
+- Godot regression tests use GdUnit4Net to test previously incorrect scene and
+  engine-dependent behavior inside a headless Godot process.
 
 ## Run All Tests
 
@@ -31,7 +31,12 @@ dotnet test src/ExoCraft.Core.Tests/ExoCraft.Core.Tests.csproj
 
 ## Test Scope
 
-Godot integration tests are intended for observable engine behavior such as:
+Godot regression tests are integration-style tests. The regression label
+describes why a test exists: to prevent a previously incorrect behavior from
+returning. The integration label describes how it works: by exercising several
+Godot components together inside a real scene tree.
+
+These tests are intended for observable engine behavior such as:
 
 - scene and node wiring;
 - input dispatch;
