@@ -36,4 +36,35 @@ public class double3xform_Tests
             Assert.That(value.scale, Is.EqualTo(expected_scale));
         }
     }
+
+    [Test]
+    public void Test_002_TransformPositionUsingIdentity_ShouldNotChangePosition()
+    {
+        double3 position = (2.0, -3.0, 4.0);
+
+        double3 result = double3xform.identity.transform_position(position);
+
+        Assert.That(result, Is.EqualTo(position));
+    }
+
+    [Test]
+    public void Test_003_TransformPosition_ShouldApplyScaleRotationAndTranslation()
+    {
+        var rotation = double3basis.identity;
+        rotation.rotate_parent_y(System.Math.PI / 2.0);
+        var transform = new double3xform(
+            position: (10.0, 20.0, 30.0),
+            rotation,
+            scale: 2.0);
+
+        double3 result = transform.transform_position((1.0, 2.0, 3.0));
+
+        const double tolerance = 1e-12;
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result.x, Is.EqualTo(16.0).Within(tolerance));
+            Assert.That(result.y, Is.EqualTo(24.0).Within(tolerance));
+            Assert.That(result.z, Is.EqualTo(28.0).Within(tolerance));
+        }
+    }
 }

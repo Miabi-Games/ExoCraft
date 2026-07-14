@@ -74,6 +74,11 @@ public record struct double3basis
     public static implicit operator double3basis(in (double3 x, double3 y, double3 z) value)
         => new(value.x, value.y, value.z);
 
+    public readonly double3 transform_vector(double3 vector)
+    {
+        return vector.x * x + vector.y * y + vector.z * z;
+    }
+
     /// <summary>
     /// Rotates this basis around its local x-axis by an angle in radians.
     /// </summary>

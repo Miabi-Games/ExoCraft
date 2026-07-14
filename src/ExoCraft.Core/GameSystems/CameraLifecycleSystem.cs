@@ -16,6 +16,11 @@ public class CameraLifecycleSystem : GameSystem
 
     public override void Initialize()
     {
+        using var playerPawns = _ecsWorld.GetEntities()
+            .With<PlayerPawn>()
+            .AsSet();
+        Entity playerPawn = playerPawns.GetEntities()[0];
+
         var rotation = double3basis.identity;
         rotation.rotate_local_x(-System.Math.PI / 6.0);
 
@@ -29,6 +34,12 @@ public class CameraLifecycleSystem : GameSystem
 
         _entity = _ecsWorld.CreateEntity();
         _entity.Set(camera);
+        _entity.Set(new ChaseCam
+        {
+            Target = playerPawn,
+            Distance = 2.0,
+            Pitch = 0.0,
+        });
     }
 
     public override void Shutdown()

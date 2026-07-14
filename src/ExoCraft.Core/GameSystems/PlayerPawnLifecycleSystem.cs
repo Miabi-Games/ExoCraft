@@ -32,6 +32,10 @@ public class PlayerPawnLifecycleSystem : GameSystem
 
         _entity.Set<PlayerPawn>();
         _entity.Set<Pawn>(pawn);
+        _entity.Set(new CameraLookAt
+        {
+            Position = (0.0, 2.0, -0.4),
+        });
     }
 
     public override void Shutdown()

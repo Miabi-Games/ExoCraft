@@ -52,7 +52,19 @@ public class PlayerPawnLifecycleSystemTests
     }
 
     [Test]
-    public void Test_004_ShutdownMethod_ShouldDestroyPlayerPawnEntity()
+    public void Test_004_CreatedPlayerEntity_ShouldHaveCameraLookAtPosition()
+    {
+        using var fixture = CreateTestFixture(initializeSystem: true);
+        var entity = fixture.GetPlayerEntityCreated();
+
+        Assert.That(entity.Has<CameraLookAt>(), Is.True);
+        Assert.That(
+            entity.Get<CameraLookAt>().Position,
+            Is.EqualTo(new double3(0.0, 2.0, -0.4)));
+    }
+
+    [Test]
+    public void Test_005_ShutdownMethod_ShouldDestroyPlayerPawnEntity()
     {
         using var fixture = CreateTestFixture();
 
@@ -62,7 +74,7 @@ public class PlayerPawnLifecycleSystemTests
     }
 
     [Test]
-    public void Test_005_ShutdownMethod_ShouldFreeTheVisualPawn()
+    public void Test_006_ShutdownMethod_ShouldFreeTheVisualPawn()
     {
         var fixture = CreateTestFixture();
 

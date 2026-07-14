@@ -61,11 +61,30 @@ public class CameraLifecycleSystemTests
         Assert.That(fixture.Cameras, Is.Empty);
     }
 
+    [Test]
+    public void Test_005_CreatedCameraEntity_ShouldChasePlayerPawn()
+    {
+        using var fixture = new TestFixture();
+        var entity = fixture.GetCameraEntityCreated();
+
+        Assert.That(entity.Has<ChaseCam>(), Is.True);
+
+        ChaseCam chaseCam = entity.Get<ChaseCam>();
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(chaseCam.Target, Is.EqualTo(fixture.PlayerPawn));
+            Assert.That(chaseCam.Distance, Is.EqualTo(2.0));
+            Assert.That(chaseCam.Pitch, Is.Zero);
+        }
+    }
+
     private sealed class TestFixture : IDisposable
     {
         public TestFixture(bool initializeSystem = true)
         {
             SimWorld = new();
+            PlayerPawn = SimWorld.EcsWorld.CreateEntity();
+            PlayerPawn.Set<PlayerPawn>();
             Cameras = SimWorld.EcsWorld
                 .GetEntities()
                 .With<Camera>()
@@ -76,6 +95,7 @@ public class CameraLifecycleSystemTests
         }
 
         public SimWorld SimWorld { get; }
+        public Entity PlayerPawn { get; }
         public EntitySet Cameras { get; }
         public CameraLifecycleSystem System { get; }
 

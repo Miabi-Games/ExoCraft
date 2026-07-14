@@ -237,6 +237,29 @@ internal class double3basis_Tests
                 -1, 0, 0));
     }
 
+    [Test]
+    public void Test_009_TransformVectorUsingIdentity_ShouldNotChangeVector()
+    {
+        double3 vector = (2.0, -3.0, 4.0);
+
+        double3 result = double3basis.identity.transform_vector(vector);
+
+        Assert.That(result, Is.EqualTo(vector));
+    }
+
+    [Test]
+    public void Test_010_TransformVector_ShouldApplyBasisAsColumnMatrix()
+    {
+        var basis = new double3basis(
+            1.0, 2.0, 3.0,
+            4.0, 5.0, 6.0,
+            7.0, 8.0, 9.0);
+
+        double3 result = basis.transform_vector((2.0, 3.0, 4.0));
+
+        Assert.That(result, Is.EqualTo(new double3(20.0, 47.0, 74.0)));
+    }
+
     private static void AssertBasisIsApproximatelyEqual(
         double3basis actual,
         double3basis expected)

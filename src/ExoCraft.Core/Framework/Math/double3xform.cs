@@ -24,5 +24,10 @@ public record struct double3xform
         this.scale = scale;
     }
 
+    public readonly double3 transform_position(double3 value)
+    {
+        return position + rotation.transform_vector(scale * value);
+    }
+
     // ─────────────────────────────────────────────────────────────────────────
 }
