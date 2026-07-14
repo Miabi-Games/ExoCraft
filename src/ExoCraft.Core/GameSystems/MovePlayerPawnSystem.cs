@@ -2,7 +2,6 @@ using DefaultEcs;
 
 using ExoCraft.EntityComponents;
 using ExoCraft.Framework.GameSystems;
-using ExoCraft.Framework.InputProviders;
 using ExoCraft.Framework.Math;
 using ExoCraft.Framework.SimWorlds;
 
@@ -10,12 +9,9 @@ namespace ExoCraft.GameSystems;
 
 public class MovePlayerPawnSystem : GameSystem
 {
-    public MovePlayerPawnSystem(
-        ISimWorld simWorld,
-        IInputProvider inputProvider)
+    public MovePlayerPawnSystem(ISimWorld simWorld)
     {
         _ecsWorld = simWorld.EcsWorld;
-        _inputProvider = inputProvider;
     }
 
     public override void Initialize()
@@ -33,15 +29,14 @@ public class MovePlayerPawnSystem : GameSystem
 
     public override void Update(double delta)
     {
-        float3 movementInput = _inputProvider.MovementInput;
-        float3 rotationInput = _inputProvider.RotationInput;
+        PlayerInput playerInput = _ecsWorld.Get<PlayerInput>();
 
         foreach (var entity in _playerPawns.GetEntities())
         {
             ref var pawn = ref entity.Get<Pawn>();
 
-            MovePawn(ref pawn, movementInput, delta);
-            RotatePawn(ref pawn, rotationInput, delta);
+            MovePawn(ref pawn, playerInput.Movement, delta);
+            RotatePawn(ref pawn, playerInput.Rotation, delta);
         }
     }
 
@@ -73,7 +68,6 @@ public class MovePlayerPawnSystem : GameSystem
     private const double RotationSpeed = double.Pi * 2 / 3;
 
     private readonly World _ecsWorld;
-    private readonly IInputProvider _inputProvider;
 
     private EntitySet _playerPawns = null!;
 }

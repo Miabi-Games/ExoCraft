@@ -13,8 +13,6 @@ public partial class MovePlayerPawnSystemNode
     {
         var gameSession = GameSession.Instance;
 
-        return new(
-            gameSession.SimWorld,
-            gameSession.InputProvider);
+        return new(gameSession.SimWorld);
     }
 }

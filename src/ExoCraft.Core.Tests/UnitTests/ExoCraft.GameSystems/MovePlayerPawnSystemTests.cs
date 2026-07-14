@@ -1,13 +1,10 @@
 using DefaultEcs;
 
 using ExoCraft.EntityComponents;
-using ExoCraft.Framework.InputProviders;
 using ExoCraft.Framework.Math;
 using ExoCraft.Framework.SimWorlds;
 using ExoCraft.GameSystems;
 using ExoCraft.Testing;
-
-using Moq;
 
 using NUnit.Framework;
 
@@ -130,13 +127,12 @@ public class MovePlayerPawnSystemTests
         public TestFixture()
         {
             SimWorld = new();
-            InputProvider = new();
-            System = new(SimWorld, InputProvider.Object);
+            SimWorld.EcsWorld.Set<PlayerInput>();
+            System = new(SimWorld);
             System.Initialize();
         }
 
         public SimWorld SimWorld { get; }
-        public Mock<IInputProvider> InputProvider { get; }
         public MovePlayerPawnSystem System { get; }
 
         public Entity CreatePawn()
@@ -156,12 +152,10 @@ public class MovePlayerPawnSystemTests
 
         public void SetInput(float3 movement, float3 rotation)
         {
-            InputProvider
-                .SetupGet(input => input.MovementInput)
-                .Returns(movement);
-            InputProvider
-                .SetupGet(input => input.RotationInput)
-                .Returns(rotation);
+            ref var playerInput = ref SimWorld.EcsWorld.Get<PlayerInput>();
+
+            playerInput.Movement = movement;
+            playerInput.Rotation = rotation;
         }
 
         public void Dispose()
