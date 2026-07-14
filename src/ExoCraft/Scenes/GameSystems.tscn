@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bmassqgif5bbi" path="res://GameSystems/PlayerPawnLifecycleSystemNode.cs" id="3_pi0pb"]
 [ext_resource type="Script" uid="uid://lv4w0sscffrc" path="res://GameSystems/SyncVisualPawnsSystemNode.cs" id="4_sync"]
 [ext_resource type="Script" uid="uid://b26j310rtwwep" path="res://GameSystems/MovePlayerPawnSystemNode.cs" id="5_move"]
+[ext_resource type="Script" uid="uid://b5832o0c170tc" path="res://GameSystems/UpdatePlayerInputSystemNode.cs" id="6_input"]
 
 [node name="GameSystems" type="Node" unique_id=2024360768]
 script = ExtResource("1_xgtsm")
@@ -22,7 +23,11 @@ metadata/_custom_type_script = "uid://bmassqgif5bbi"
 script = ExtResource("2_y407s")
 metadata/_custom_type_script = "uid://xukibbwvhdcj"
 
-[node name="MovePlayerPawnSystem" type="Node" parent="UpdateSystemGroup"]
+[node name="UpdatePlayerInputSystem" type="Node" parent="UpdateSystemGroup" unique_id=1162744620]
+script = ExtResource("6_input")
+metadata/_custom_type_script = "uid://b5832o0c170tc"
+
+[node name="MovePlayerPawnSystem" type="Node" parent="UpdateSystemGroup" unique_id=823638147]
 script = ExtResource("5_move")
 metadata/_custom_type_script = "uid://b26j310rtwwep"
 
