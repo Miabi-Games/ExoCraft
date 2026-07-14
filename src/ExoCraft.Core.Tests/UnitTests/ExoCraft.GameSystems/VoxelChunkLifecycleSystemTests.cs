@@ -59,7 +59,18 @@ public class VoxelChunkLifecycleSystemTests
     }
 
     [Test]
-    public void Test_003_ShutdownMethod_ShouldDestroyAllVoxelChunks()
+    public void Test_003_CreatedChunks_ShouldInitiallyBeDirty()
+    {
+        using var fixture = new TestFixture();
+
+        foreach (Entity entity in fixture.VoxelChunks.GetEntities())
+        {
+            Assert.That(entity.Has<Dirty>(), Is.True);
+        }
+    }
+
+    [Test]
+    public void Test_004_ShutdownMethod_ShouldDestroyAllVoxelChunks()
     {
         using var fixture = new TestFixture();
 

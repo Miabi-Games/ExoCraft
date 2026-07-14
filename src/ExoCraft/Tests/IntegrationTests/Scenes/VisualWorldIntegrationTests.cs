@@ -9,6 +9,7 @@ using GdUnit4;
 using Godot;
 
 using System;
+using System.Collections.Generic;
 
 using static GdUnit4.Assertions;
 
@@ -94,7 +95,7 @@ public class VisualWorldIntegrationTests
 
     [TestCase]
     [RequireGodotRuntime]
-    public void CreatingVoxelChunkInstantiatesEightMeterCube()
+    public void SettingVoxelChunkMeshCreatesArrayMesh()
     {
         ISceneRunner runner = ISceneRunner.Load("res://Scenes/VisualWorld.tscn");
         var visualWorld = runner.Scene() as VisualWorld ??
@@ -107,12 +108,21 @@ public class VisualWorldIntegrationTests
 
         try
         {
+            visualChunk.SetMesh(
+                new List<VoxelVertex>
+                {
+                    new() { Position = (0.0f, 0.0f, 0.0f), Normal = float3.up },
+                    new() { Position = (1.0f, 0.0f, 0.0f), Normal = float3.up },
+                    new() { Position = (0.0f, 0.0f, 1.0f), Normal = float3.up },
+                },
+                new List<int> { 0, 1, 2 });
             var meshInstance = chunkNode.GetNode<MeshInstance3D>("MeshInstance3D");
-            var mesh = meshInstance.Mesh as BoxMesh ??
+            var mesh = meshInstance.Mesh as ArrayMesh ??
                 throw new InvalidOperationException(
-                    "The voxel chunk scene did not contain a box mesh.");
+                    "The voxel chunk did not create an array mesh.");
 
-            AssertThat(mesh.Size).IsEqual(new Vector3(8.0f, 8.0f, 8.0f));
+            AssertThat(mesh.GetSurfaceCount()).IsEqual(1);
+            AssertThat(mesh.GetFaces().Length).IsEqual(3);
         }
         finally
         {

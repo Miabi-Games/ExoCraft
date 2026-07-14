@@ -55,6 +55,7 @@ public class VoxelChunkLifecycleSystem : GameSystem
         Entity entity = _ecsWorld.CreateEntity();
 
         entity.Set(chunk);
+        entity.Set<Dirty>();
         _entities[z * ChunkCountPerAxis + x] = entity;
     }
 
