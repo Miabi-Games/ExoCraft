@@ -3,10 +3,23 @@
     <TargetFramework>net10.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-	  <ImplicitUsings>disable</ImplicitUsings>
-	  <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject Condition="'$(Configuration)' == 'Debug'">true</IsTestProject>
+    <IsTestProject Condition="'$(Configuration)' != 'Debug'">false</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExoCraft.Core\ExoCraft.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="gdUnit4.api" Version="5.1.0-rc5" />
+    <PackageReference Include="gdUnit4.test.adapter" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+    <Compile Remove="Tests\**\*.cs" />
+    <Compile Remove="gdunit4_testadapter_v5\**\*.cs" />
   </ItemGroup>
 </Project>
