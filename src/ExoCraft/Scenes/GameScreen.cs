@@ -44,6 +44,7 @@ public partial class GameScreen : RootScreenLayer
 
     public override void _Process(double delta)
     {
+        _inputProvider.IsEnabled = GetShouldAcceptInput();
         _gameSystems?.Render(delta);
     }
 
